@@ -5,6 +5,10 @@ from django.db import models
 import datetime
 from django.contrib.auth.models import User, Group
 
+class Member(models.Model):
+	User = models.OneToOneField(User)
+	Level = models.IntegerField(default=0)
+
 class Exercise(models.Model):
 	Level = models.IntegerField(default=0)
 
@@ -17,3 +21,4 @@ class Set(models.Model):
 class Workout(models.Model):
 	Sets = models.ManyToManyField(Set, default="", null=True, blank=True)
 	Date = models.DateField(auto_now=True)
+	_User = models.OneToOneField(User)
