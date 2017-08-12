@@ -1,0 +1,131 @@
+{% load static %}
+<p>Admin Home</p>
+<p>{{Test}}</p>
+<form method="GET" id="form_test" name="form_test">
+	<input id="test_button" name="test_button" type="submit" value="Input"></input>
+</form>
+
+<h2>Add Member</h2>
+
+<form method="GET">
+  First name: <input type="text" name="fname"><br>
+  Last name: <input type="text" name="lname"><br>
+  Email/Username: <input type="text" name="username"><br>
+  Password: <input type="text" name="password"><br>
+  Level: <input type="number" name="level"><br>
+
+  <input type="submit" name="submitaddmember" value="Add">
+</form>
+{{Member_Added}}
+
+<h2>Add Exercise</h2>
+<form method="GET">
+  Level: <input type="number" name="exercise_level" placeholder="Level Number"><br>
+  Name: <input type="text" name="exercise_name"><br>
+  Type: <input type="text" name="exercise_type"><br>
+
+  <input type="submit" name="submitaddexercise" value="Add">
+</form>
+{{Exercise_Added}}
+
+<h2>Add Set</h2>
+<form method="GET">
+  Exercise: <input type="text" name="set_exercise" placeholder="Exercise Name"><br>
+  Exercise Type: <input type="text" name="set_type" placeholder="Exercise Type"><br>
+  Level: <input type="number" name="set_level" placeholder="Level Number"><br>
+  Reps: <input type="number" name="set_reps"><br>
+  Rest Time After (Seconds): <input type="number" name="set_rest_time"><br>
+  Order: <input type="text" name="set_order"><br>
+  <input type="submit" name="submitaddset" value="Add">
+</form>
+{{Set_Added}}
+
+<h2>Add Workout</h2>
+<form method="GET">
+  Level: <input type="number" name="workout_level" placeholder="Level Number"><br>
+  Week: <input type="number" name="workout_week" placeholder="Exercise Name"><br>
+  Day: &nbsp  <input type="number" name="workout_day" placeholder="Exercise Type"><br>
+  Set 1: <input type="text" name="workout_set_1_code"><br>
+  Set 2: <input type="text" name="workout_set_2_code"><br>
+  Set 3: <input type="text" name="workout_set_3_code"><br>
+  Set 4: <input type="text" name="workout_set_4_code"><br>
+  Set 5: <input type="text" name="workout_set_5_code"><br>
+  Set 6: <input type="text" name="workout_set_6_code"><br>
+  <input type="submit" name="submitaddworkout" value="Add">
+</form>
+{{Workout_Added}}
+
+<h2>Users List</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Level</th>
+      </tr>
+    </thead>
+    <tbody>
+
+		<tr> <td>Test</td> <td>Test</td> <td>Test</td> <td>Test</td> <td>Test</td> <td>
+
+		{% for row in Users %}
+		<!-- <form method = "POST" action = "">{% csrf_token %}  -->
+		<tr> <td>{{row.0}}</td> <td>{{row.1}} </td> <td>{{row.2}} </td> <td>{{row.3}}</td> <td>{{row.4}}</td> <td>
+		<!-- <input type="submit" class="btn" value="Accept" name={{row.4}} id="A">   -->
+		<!-- <input type="submit" class="btn" value="Deny" name={{row.5}} id="D"> </td> </tr> -->
+		<!-- </form>		 -->
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>Exercise List</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Name</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+		{% for row in Exercises %}
+		<tr> <td>{{row.0}}</td> <td>{{row.1}} </td> <td>{{row.2}} </td> 
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>Set List</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Exercise</th>
+        <th>Reps</th>
+        <th>Code</th>
+      </tr>
+    </thead>
+    <tbody>
+		{% for row in Sets %}
+		<tr> <td>{{row.0}}</td> <td>{{row.1}} </td> <td>{{row.2}}</td> <td>{{row.3}}</td> 
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>Workout List</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Week</th>
+        <th>Day</th>
+        <th>Sets</th>
+      </tr>
+    </thead>
+    <tbody>
+		{% for row in Workouts %}
+		<tr> <td>{{row.0}}</td> <td>{{row.1}} </td> <td>{{row.2}}</td> <td>{{row.3}}</td> 
+		{% endfor %}
+	</tbody>
+</table>

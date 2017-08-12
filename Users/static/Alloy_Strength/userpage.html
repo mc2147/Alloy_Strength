@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include Vue.js Source Code -->
+<script src='https://unpkg.com/vue'></script>
+
+
+<!-- Include HTML Code -->
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Material Design code -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="navigation.css">
+
+
+    <title>Exercise 4</title>
+</head>
+
+<body>
+
+<div class='mdl-layout__content' style='width:100%'>
+
+    <!-- PLACE MENU HERE -->
+    <ul id='nav_bar'>
+        <li><a class="mdl-navigation__link" href="">Nav Item 1</a></li>
+        <li><a class="mdl-navigation__link" href="">Nav Item 2</a></li>
+        <li><a class="mdl-navigation__link" href="">Nav Item 3</a></li>
+        <li><a class="mdl-navigation__link" href="">Nav Item 4</a></li>
+    </ul>
+
+
+    <h1>Welcome, user!</h1>
+
+    <hr>
+
+    <!-- PLACE IMAGES HERE -->
+    <div class='mdl-grid'>
+        <div class='mdl-cell mdl-cell--4-col graybox'>Hello 1</div>
+        <div class='mdl-cell mdl-cell--4-col graybox'>Hello 2</div>
+        <div class='mdl-cell mdl-cell--4-col graybox'>Hello 3</div>
+    </div>
+
+
+    <!-- MODALS -->
+    <!-- TO DO: pattern matching -->
+    <div class='mdl-grid'>
+        <div class='mdl-cell mdl-cell--12-col' id='modal_button_container'>
+            <!-- SIGN-UP MODAL -->
+            <div id='sign-up' class='modal_button'>
+                <!-- Accent-colored raised button with ripple -->
+                <button id='show-modal' @click='showModal = true'
+                        class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>SIGN UP</button>
+
+                <modal v-if='showModal' @close='showModal=false'>
+                    <h3 slot='header' style='text-align:left'>{{ header }}</h3>
+
+                    <!-- Simple Textfield -->
+                    <form slot='body' action="#" >
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='name'>
+                        </div>
+                    </form>
+
+                    <!-- Simple Textfield 2-->
+                    <form slot='body' action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='email'>
+                        </div>
+                    </form>
+
+                    <!-- Simple Textfield 3-->
+                    <form slot='body' action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='password'>
+                        </div>
+                    </form>
+
+                    <!-- Simple Textfield 4-->
+                    <form slot='body' action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='confirm_password'>
+                        </div>
+                    </form>
+
+                </modal>
+            </div>
+
+            <!-- LOG-IN MODAL -->
+            <div id='log-in' class='modal_button'>
+                <!-- Accent-colored raised button with ripple -->
+                <button id='show-modal' @click='showModal = true'
+                        class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>LOG IN</button>
+
+                <modal v-if='showModal' @close='showModal=false'>
+                    <h3 slot='header' style='text-align:left'>{{ header }}</h3>
+
+                    <!-- Simple Textfield -->
+                    <form slot='body' action="#" >
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='email'>
+                        </div>
+                    </form>
+
+                    <!-- Simple Textfield 2-->
+                    <form slot='body' action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" v-bind:value='password'>
+                        </div>
+                    </form>
+
+                </modal>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+<!-- Styling -->
+<style>
+    .graybox {
+        background-color:#ddd;
+    }
+</style>
+
+
+</html>
