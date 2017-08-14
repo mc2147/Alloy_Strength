@@ -3,8 +3,39 @@ from __future__ import unicode_literals
 from .models import Workout, Set, Exercise, Member
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import datetime, time
+
+
+def User_Page(request): 
+	test_var = "" 
+	return render(request, "userpage.html", {'test_var': test_var})
+
+
+@csrf_exempt 
+def Workout_Update(request): 
+	if request.method == 'POST': 
+		if 'TempDate' in request.POST: 
+
+			# test_var = date 
+			test_var = request.POST['TempDate']
+			print "Request is", request 
+
+			# Include Model filtering here based on test_var
+		
+			# Only for one row 
+			return JsonResponse({
+				'status': 'success',
+				'pattern': 'pattern:' + test_var,
+				'level': 'level: ' + test_var, 
+				'exercise': 'exercise: ' + test_var, 
+				'weight': 'weight: ' + test_var, 
+				'rpe': 'rpe: ' + test_var, 
+				'tempo': 'tempo: ' + test_var,
+				})
+		else: 
+			return JsonResponse({'status': 'fail'})		
 
 def Home(request):
 	context = {}
