@@ -7,11 +7,9 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import datetime, time
 
-
 def User_Page(request): 
 	test_var = "" 
 	return render(request, "userpage.html", {'test_var': test_var})
-
 
 @csrf_exempt 
 def Workout_Update(request): 
@@ -35,7 +33,7 @@ def Workout_Update(request):
 				'tempo': 'tempo: ' + test_var,
 				})
 		else: 
-			return JsonResponse({'status': 'fail'})		
+			return JsonResponse({'status': 'fail'})	
 
 def Home(request):
 	context = {}
