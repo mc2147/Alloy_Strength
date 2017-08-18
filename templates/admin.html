@@ -1,12 +1,21 @@
 {% load static %}
+{{Placeholders.3.0.3}}
 <p>Admin Home</p>
+<a>Levels 6-10</a> <a>Levels 11-15</a> <a>Levels 16-25</a>
+<br>
+<br>
+<a>Exercises</a> 
+
+<h1>Levels 1 to 5</h1>
+
 <p>{{Test}}</p>
 <form method="GET" >
 	<input id="delete_all" name="delete_all" type="submit" value="Delete All"></input>
   <input id="delete_sets_workouts" name="delete_sets_workouts" type="submit" value="Delete Sets & Workouts"></input>
+  <input id="refresh" name="refresh" type="submit" value="Refresh"></input>
 </form>
 
-<h2>Add Member</h2>
+<!-- <h2>Add Member</h2>
 
 <form method="GET">
   First name: <input type="text" name="fname"><br>
@@ -17,14 +26,14 @@
 
   <input type="submit" name="submitaddmember" value="Add">
 </form>
-{{Member_Added}}
+{{Member_Added}} -->
 
-<h2>Add Exercise</h2>
+<!-- <h2>Add Exercise</h2>
 <form method="GET">
   Level: <input type="number" name="exercise_level" placeholder="Level Number"><br>
   Name: <input type="text" name="exercise_name"><br>
   Type: 
-  <!-- <input type="text" name="exercise_type"><br> -->
+  <input type="text" name="exercise_type"><br>
     <select name="exercise_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -33,9 +42,9 @@
 
   <input type="submit" name="submitaddexercise" value="Add">
 </form>
-{{Exercise_Added}}
+{{Exercise_Added}} -->
 
-<h2>Add Set</h2>
+<!-- <h2>Add Set</h2>
 <form method="GET">
   Exercise: <input type="text" name="set_exercise" placeholder="Exercise Name"><br>
   Exercise Type: <input type="text" name="set_type" placeholder="Exercise Type"><br>
@@ -45,36 +54,70 @@
   Order: <input type="text" name="set_order"><br>
   <input type="submit" name="submitaddset" value="Add">
 </form>
-{{Set_Added}}
+{{Set_Added}} -->
 
-<h2>Add Workout</h2>
+<div style="display:inline-block;">
+      <h2>Edit Workouts</h2>
+      {% for Week in Weeks %}
+      <h3 style="margin-bottom:2px;">{{Week.0}}</h3>
+      <div style="display:inline-block;" >
+      {% for Row in Days %}
+      <form method="GET" style="display:inline-block;">
+      <h4 style="margin-bottom:2px; margin-top:2px;">{{Row.0}}</h4>
+        <div style="margin-right:55px; float:left;">&nbsp </div> 
+        Exercise Type | Sets x Reps:<br>
+
+        {% for Sets in Sets_Per_Workout %}
+        {{Sets.0}}  
+          <select name="Type_{{Sets.1}}">
+
+          <!-- <option value="Test">Test</option> -->
+
+          {% for Type in Exercise_Types %}
+          <option value="{{Type}}">{{Type}}</option>
+          {% endfor %}
+          </select> 
+          <input style="width:40px;" type="text" placeholder="" name="Sets_{{Sets.1}}">
+          x
+          <input style="width:40px;" type="text" name="Reps_{{Sets.1}}">
+          <br>
+        {% endfor %}    
+         <input type="submit" name="{{Week.1}}{{Row.1}}_Update_Workout" value="Update">
+         </form>
+         {% endfor %} <!-- Day Loop End  -->
+      </div>
+      {% endfor %}
+</div>
+
+<div style="display:inline-block; width:30%; vertical-align:top;">
+      <h2>Current Workouts</h2>
+      {% for Week in Workout_Templates %}
+      <h3 style="margin-bottom:2px;">{{Week.0}}</h3>
+      {% for Day in Week.1 %}
+      <div style="display:inline-block; vertical-align:top;" >
+      <h4 style="margin-bottom:2px; margin-top:2px; width:120px; margin-left:0px; margin-right:-5px;">{{Day.0}}</h4>
+      {% for Sub in Day.1 %}
+      {{Sub.3}} {{Sub.0}} {{Sub.1}} {{Sub.2}}<br>
+      {% endfor %}      
+      </div>
+      {% endfor %}
+      {% endfor %}
+</div>
+
+{{Workout_Added}}
+
+
+
+
+
+<h2>Add Workout Tester</h2>
 <form method="GET">
   Level: <input type="number" name="workout_level" placeholder="Level Number"><br>
   Week: <input type="number" name="workout_week" placeholder="Exercise Name"><br>
   Day: &nbsp  <input type="number" name="workout_day" placeholder="Exercise Type"><br>
   Manual Date: <input type="text" name="workout_date" placeholder="MM/DD/YYYY"><br>
   Exercise Type | Sets x Reps:<br>
-
-<!--   <select>
-    {% for Type in Exercise_Types %}
-    <option value="{{Type}}">{{Type}}</option>
-    {% endfor %}
-  <option value="UB Hor Push">UB Hor Push</option>
-  <option value="UB Vert Push">UB Vert Push</option>
-  <option value="UB Hor Pull">UB Hor Pull</option>
-  <option value="UB Vert Pull">UB Vert Pull</option>
-  <option value="Hinge">Hinge</option>
-  <option value="Squat">Squat</option>
-  <option value="LB Uni Push">LB Uni Push</option>
-  <option value="Ant Chain">Ant Chain</option>
-  <option value="Post Chain">Post Chain</option>
-  <option value="Isolation">Isolation</option>
-  <option value="Iso 2">Iso 2</option>
-  <option value="Iso 3">Iso 3</option>
-  <option value="Iso 4">Iso 4</option>
-</select>
- -->
-  Set 1: <br>  
+  Set 1:  
     <select name="workout_set_1_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -84,7 +127,7 @@
     x
     <input style="width:40px;" type="text" name="workout_set_1_reps">
     <br>
-  Set 2: <br> 
+  Set 2: 
     <select name="workout_set_2_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -94,7 +137,7 @@
     x
     <input style="width:40px;" type="text" name="workout_set_2_reps">
     <br>
-  Set 3: <br>
+  Set 3: 
     <select name="workout_set_3_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -104,7 +147,7 @@
     x
     <input style="width:40px;" type="text" name="workout_set_3_reps">
     <br>
-  Set 4: <br>
+  Set 4: 
     <select name="workout_set_4_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -114,7 +157,7 @@
     x
     <input style="width:40px;" type="text" name="workout_set_4_reps">
     <br>
-  Set 5: <br>
+  Set 5: 
     <select name="workout_set_5_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>
@@ -124,7 +167,7 @@
     x
     <input style="width:40px;" type="text" name="workout_set_5_reps">
     <br>
-  Set 6: <br>
+  Set 6: 
     <select name="workout_set_6_type">
     {% for Type in Exercise_Types %}
     <option value="{{Type}}">{{Type}}</option>

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from .models import Workout, Set, Exercise, Member, SubWorkout
+from .models import Workout, Set, Exercise, Member, SubWorkout, Workout_Template
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 
 Exercise_Types = ["UB Hor Push", "UB Vert Push",  "UB Hor Pull", "UB Vert Pull",  "Hinge", "Squat", "LB Uni Push", 
 "Ant Chain", "Post Chain",  "Isolation", "Iso 2", "Iso 3", "Iso 4", "RFL Load", "RFD Unload 1", "RFD Unload 2"]
@@ -14,12 +14,21 @@ def User_Page(request):
 	test_var = "" 
 	return render(request, "userpage.html", {'test_var': test_var})
 
+
+def Videos(request): 
+	return render(request, "videos.html")
+
+# def Test(request):
+# 	return render(request, "")
+
+
 Days_Of_Week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-
 def Generate_Workouts(Start_Date, Level, Days_List):
-	Days = enumerate(Days_List)
-	Workouts = Workout_Templates.objects.get(Level=Level)
+	Week_Days = enumerate(Days_Of_Week)
+	Days = Days_List
+	# Workouts = Workout_Template.objects.get(Level=Level)
+	Output = []
 	if Level <= 5:
 		# Create workout objects with dates according to the next 4 weeks
 		# 1. Get day of the week of start_date (should be one of Days_List)
@@ -29,14 +38,28 @@ def Generate_Workouts(Start_Date, Level, Days_List):
 		count = 0
 		for i in range(1, 29): #i will be from 1 to 28
 			if (Start_Date + timedelta(days=i)).weekday() in Days:
+				Workout_Date = Start_Date + timedelta(days=i)
 				count += 1
-				string_date = Start_Date.strftime('%m/%d/%Y')
-				_Template = Workout_Templates.objects.get(Level=Level, Ordered_ID = count)
-				_Workout = Workout(Template=_Template, _Date=string_date)
-				_Workout.save()
-				print(Start_Date.strftime('%m/%d/%Y'))
+				string_date = Workout_Date.strftime('%m/%d/%Y')
+				# _Template = Workout_Template.objects.get(Level_Group=1, Ordered_ID = count)
+				# _Workout = Workout(Template=_Template, _Date=string_date)
+				# _Workout.save()
+				print(Workout_Date.strftime('%m/%d/%Y'))
+				Output.append(string_date)
+		return(Output)
+	elif Level >= 6 and Level <= 10:
+		return None
+	elif Level >= 11 and Level <= 15:
+		return None
+	elif Level >= 16 and Level <= 25:
+		return None
 
 			# .weekday(timedelta(days=i+1))
+
+def Test(request):
+	context = {}
+	print(Generate_Workouts(datetime(2017, 8, 1), 1, [0, 2, 4]))
+	return render(request, "test.html", context)
 
 
 
@@ -78,10 +101,6 @@ def Home(request):
 	context = {}
 	return render(request, "homepage.html", context)
 
-def Test(request):
-	context = {}
-	return render(request, "test.html", context)
-
 def Member_Home(request):
 	context = {}
 	context["Sets"] = []
@@ -119,6 +138,7 @@ def Admin(request):
 	context["Users"] = []
 
 	context["Exercise_Types"] = Exercise_Types
+
 	context["Exercises"] = []
 	context["Sets"] = []
 	context["Workouts"] = []
@@ -128,6 +148,109 @@ def Admin(request):
 	context["Set_Added"] = ""
 	context["Workout_Added"] = ""
 
+	context["Weeks"] = [["Week 1", "W1", 1, [[[], [], [], [], [], []], [[], [], [], [], [], []], [[], [], [], [], [], []]] ], 
+	["Week 2", "W2", 2], 
+	["Week 3", "W3", 3], 
+	["Week 4", "W4", 4]]
+	context["Days"] = [["Day 1", "D1", 1],
+	["Day 2", "D2", 2],
+	["Day 3", "D3", 3]]
+	context["Sets_Per_Workout"] = [["Set 1", 1],
+	["Set 2", 2],
+	["Set 3", 3],
+	["Set 4", 4],
+	["Set 5", 5],
+	["Set 6", 6],]
+
+	context["Test_Dict"] = {"Test": "Dictionary Works"}
+
+	context["Placeholders"] = [
+	[[[], [], [], [], [], []], [[], [], [], [], [], []], [[], [], [], [], [], []]], 
+	[[[], [], [], [], [], []], [[], [], [], [], [], []], [[], [], [], [], [], []]], 
+	[[[], [], [], [], [], []], [[], [], [], [], [], []], [[], [], [], [], [], []]], 
+	[[[], [], [], [], [], []], [[], [], [], [], [], []], [[], [], [], [], [], []]]]
+	# Week - 0 to 3
+	# Day - 0 to 2
+	# Set - 0 to 5
+
+	context["Workout_Templates"] = [
+	["Week 1", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
+	["Week 2", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
+	["Week 3", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
+	["Week 4", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]]]
+
+	for i in Workout_Template.objects.all():
+		_week_index = i.Week - 1 #Workout_Templates[index]
+		_day_index = i.Day - 1 #Workout_Templates[week][1][_day_index]		
+		print("Existing Workout Template: " + "Week " + str(i.Week) + " Day " + str(i.Day) + " Ordered ID: " + str(i.Ordered_ID))
+		for x in i.SubWorkouts.all():			
+			_exercise_type = x.Exercise_Type
+			_sets = x.Sets
+			_reps = x.Reps			
+			_order = x.Order
+			print(x.Exercise_Type + " " + str(x.Sets) + " x " + str(x.Reps)) + " (Set " + str(x.Order) + ")"
+			_subworkout_index = x.Order - 1
+			context["Workout_Templates"][_week_index][1][_day_index][1][_subworkout_index] = [_exercise_type, str(_sets) + " x ", _reps, "Set " + str(_order) + ":"]
+
+	for i in context["Weeks"]:
+		for y in context["Days"]:
+			btn_code = i[1] + y[1] + "_Update_Workout"
+			_week = i[2]
+			_day = y[2]
+			if Workout_Template.objects.filter(Level_Group=1, Week=_week, Day=_day).exists() == False:
+				print("Created Workout Template: " + str(_week) + str(_day))
+				_Workout_Template = Workout_Template(Level_Group=1, Week=_week, Day=_day)
+				_Workout_Template.Ordered_ID = (_week - 1)*3 + _day
+				_Workout_Template.save()
+			else:
+				_Workout_Template = Workout_Template.objects.get(Level_Group=1, Week=_week, Day=_day)
+				_Workout_Template.Ordered_ID = (_week - 1)*3 + _day
+				_Workout_Template.save()
+
+			if request.GET.get(btn_code):
+				print(btn_code)
+				for z in range(1,7):
+					if (_Workout_Template.SubWorkouts.all().filter(Order = z).exists()):
+						_Placeholder_SubWorkout = _Workout_Template.SubWorkouts.all().get(Order = z)
+						
+						_Type = _Placeholder_SubWorkout.Exercise_Type
+						_Sets = _Placeholder_SubWorkout.Sets
+						_Reps = _Placeholder_SubWorkout.Reps
+						# context["Placeholders"][_week - 1][_day - 1][z - 1] = [_Type, _Sets, _Reps]
+
+					_sets = "Sets_" + str(z)
+					_reps = "Reps_" + str(z)
+					_type = "Type_" + str(z)					
+					if (request.GET.get(_sets) != "" and request.GET.get(_reps) != ""):
+						print(request.GET.get(_sets))
+						print(request.GET.get(_reps))
+						print(request.GET.get(_type))
+						_Sets_ = request.GET.get(_sets)
+						_Reps_ = request.GET.get(_reps)
+						_Type_ = request.GET.get(_type)
+						print("test")
+						print(i[0] + " " + y[0] + " Subworkout " + str(z) + ": " 
+						+ request.GET.get(_type) + " "
+						+ str(request.GET.get(_sets)) + " x " + str(request.GET.get(_reps)))
+						_SubWorkout = SubWorkout(Exercise_Type = _Type_, Sets = _Sets_, Reps = _Reps_, Order = z)
+						_SubWorkout.save()
+						if (_Workout_Template.SubWorkouts.all().filter(Order = z).exists()):
+							print("Exists")							
+							_Edit_SubWorkout = _Workout_Template.SubWorkouts.all().get(Order = z)
+
+							_Edit_SubWorkout.Exercise_Type = _Type_
+							_Edit_SubWorkout.Sets = _Sets_
+							_Edit_SubWorkout.Reps = _Reps_
+							_Edit_SubWorkout.save()
+							_Workout_Template.save()
+						else:
+							_Workout_Template.SubWorkouts.add(_SubWorkout)
+							_Workout_Template.save()
+						# _Workout_Template.SubWorkouts.add(_SubWorkout)
+						# _Workout_Template.save()
+					# else:
+					# 	print(i[0] + " " + y[0] + " No set ")
+				return HttpResponseRedirect("/admin-site")
 
 	for i in Member.objects.all():
 		row = []
@@ -167,6 +290,9 @@ def Admin(request):
 			sets = sets + x.Exercise.Name + " " + str(x.Sets) + " x " + str(x.Reps) + ", "
 		row.append(sets)
 		context["Workouts"].append(row)
+
+	if(request.GET.get("refresh")):
+		return HttpResponseRedirect("/admin-site")
 
 	if(request.GET.get("delete_all")):
 		Member.objects.all().delete()

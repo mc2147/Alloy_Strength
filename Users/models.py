@@ -27,7 +27,7 @@ class Set(models.Model):
 class SubWorkout(models.Model):
 	# Workout = models.OneToOneField(Workout, default="")
 	# Exercise = models.OneToOneField(Exercise, default="", null=True, blank=True)
-	Exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+	Exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, blank=True, null=True)
 	Exercise_Type = models.CharField(default="", max_length=200)
 	Sets = models.IntegerField(default=0)
 	Reps = models.IntegerField(default=0)
@@ -35,6 +35,7 @@ class SubWorkout(models.Model):
 	RPE = models.IntegerField(default=0)
 
 class Workout_Template(models.Model):
+	Level_Group = models.IntegerField(default=0)
 	Level = models.IntegerField(default=0)
 	Ordered_ID = models.IntegerField(default=0)
 	Week = models.IntegerField(default=0)
