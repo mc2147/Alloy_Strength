@@ -5,6 +5,7 @@ Vue.component('modal', {
 
 new Vue({
     el:'#sign-up',
+    delimiters: ['${', '}'],
     data: {
         showModal: false,
         header: 'SIGN UP',
@@ -17,6 +18,7 @@ new Vue({
 
 new Vue({
     el:'#log-in',
+    delimiters: ['${', '}'],
     data: {
         showModal: false,
         header: 'LOG IN',
