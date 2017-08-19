@@ -75,12 +75,42 @@ def Workout_Update(request):
 			print "Request is", request 
 			print test_var
 			print isinstance(test_var, basestring)
+			
+
+			if (not (Workout_Template.objects.filter(_Date="08/16/2017").exists())):
+				template_1 = Workout_Template(
+					Level_Group = 1,
+					Level = 1,
+					_Date="08/16/2017"
+				)
+				template_1.save()
+				workout_1 = Workout(
+					Template = template_1,
+					_Date = "08/16/2017",
+					Level = 5
+				)
+				workout_1.save(); 
+			
+
+			print "Templates", Workout_Template.objects.all();
+			print "Workout:", Workout.objects.all();
+			
+
+			# Template = models.ForeignKey(Workout_Template, default="")
+			# Level = models.IntegerField(default=0)
+			# Ordered_ID = models.IntegerField(default=0)
+			# Week = models.IntegerField(default=0)
+			# Day = models.IntegerField(default=0)
+			# Sets = models.ManyToManyField(Set, default="", null=True, blank=True)
+			# Date = models.DateField(auto_now=True)
+			# _Date = models.CharField(default="", max_length=10)
+			# SubWorkouts = models.ManyToManyField(SubWorkout, default="")
 
 			if (Workout.objects.filter(_Date=test_var)).exists():
 				_Workout = Workout.objects.get(_Date=test_var)
 				print("Workout Level: " + str(_Workout.Level))
-				_Level = _Workout.Level
-				_Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
+				# _Level = _Workout.Level
+				# _Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
 
 			# Include Model filtering here based on test_var
 		
@@ -88,10 +118,9 @@ def Workout_Update(request):
 			return JsonResponse({
 				'status': 'success',
 				'pattern': 'pattern:' + test_var,
-				'level': str(_Level), 
-				'exercise': _Exercise_Name, 
+				'level': 'level' + test_var, 
+				'exercise': 'exercise' + test_var,
 				'weight': 'weight: ' + test_var, 
-				'rpe': 'rpe: ' + test_var, 
 				'tempo': 'tempo: ' + test_var,
 				})
 		else: 

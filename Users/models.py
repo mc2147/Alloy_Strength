@@ -44,7 +44,7 @@ class Workout_Template(models.Model):
 	_Date = models.CharField(default="", max_length=10)
 
 class Workout(models.Model):
-	Template = models.ForeignKey(Workout_Template)
+	Template = models.ForeignKey(Workout_Template, default="")
 	Level = models.IntegerField(default=0)
 	Ordered_ID = models.IntegerField(default=0)
 	Week = models.IntegerField(default=0)
