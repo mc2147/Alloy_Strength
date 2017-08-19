@@ -21,6 +21,64 @@ def Videos(request):
 # def Test(request):
 # 	return render(request, "")
 
+def Sign_Up(request): 
+	# if(request.GET.get('add_student_btn')):
+	# 	f_name = request.REQUEST.get("firstname")
+	# 	l_name = request.REQUEST.get("lastname")
+	# 	d_password = request.REQUEST.get("defaultpassword")
+	# 	student_id = request.REQUEST.get("ID")
+	# 	points = request.REQUEST.get("points")
+	# 	if User.objects.filter(username=student_id).exists():
+	# 		context["error"] = "This username is taken"
+	# 	else:
+	# 		new_user = User.objects.create_user(username=student_id, first_name=f_name, last_name=l_name, password=d_password)
+	# 		new_student = Student(user=new_user)
+	# 		new_student.points = points
+	# 		print(request.user.username)
+	# 		print(new_student.points)			
+	# 		teacher_id = request.user.username
+	# 		#new_student.teacher_id = teacher_id
+	# 		new_student.save()
+	return render(request, "signup.html")
+
+def Log_In(request): 
+	# context = {}
+	# reg_user = request.user.username
+	# if(request.POST.get("s-login")):
+	# 	u_name = request.REQUEST.get("username")
+	# 	p_word = request.REQUEST.get("password")
+	# 	if User.objects.filter(username=u_name).exists():
+	# 		user = User.objects.get(username=u_name)
+	# 		user.is_active = True
+	# 		user.save()		
+	# 	auth = authenticate(username=u_name, password=p_word)
+	# 	if auth:
+	# 		user.save()			
+	# 		if teacher_check(user) == False:
+	# 			login(request, auth)
+	# 			print("STUDENT LOGIN SUCCESS")
+	# 			print(request.user.username)
+	# 			return HttpResponseRedirect('/student/home')
+
+	# if (request.POST.get("t-login")):
+	# 	u_name = request.REQUEST.get("username")
+	# 	p_word = request.REQUEST.get("password")
+	# 	print(u_name)
+	# 	print(p_word)		
+	# 	if User.objects.filter(username=u_name).exists():
+	# 		user = User.objects.get(username=u_name)
+	# 		user.is_active = True
+	# 		user.save()
+	# 	auth = authenticate(username=u_name, password=p_word)
+	# 	if auth:
+	# 		if teacher_check(user):
+	# 			login(request, auth)
+	# 			user.save()
+	# 			print("TEACHER LOGIN SUCCESS")
+	# 			print(request.user.username)
+	# 			return HttpResponseRedirect('/teacher/home')
+	return render(request, "login.html")
+
 
 Days_Of_Week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
