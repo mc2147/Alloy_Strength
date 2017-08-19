@@ -137,28 +137,58 @@ def Workout_Update(request):
 			print test_var
 			print isinstance(test_var, basestring)
 
-			output = {
-				'status': 'success',
-				'pattern': 'pattern:' + test_var,
-				'level': 'level' + test_var, 
-				'exercise': 'level' + test_var, 
-				'weight': 'weight: ' + test_var, 
-				'rpe': 'rpe: ' + test_var, 
-				'tempo': 'tempo: ' + test_var,
-				}
+	
+			workoutDict = {}
 
-			if (Workout.objects.filter(_Date=test_var)).exists():
-				_Workout = Workout.objects.get(_Date=test_var)
-				print("Workout Level: " + str(_Workout.Level))
-				_Level = _Workout.Level
-				_Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
-				output['level'] = str(_Level)
-				output['exercise'] = _Exercise_Name
+
+			workout_list = Workout.objects.filter(_Date=test_var); 
+			counter = 0 
+			for workout in workout_list: 
+				counter +=1 
+				print "ITERATION: ", counter
+				# print "Template: ", workout.Template
+				# print "Level: ", workout.Level
+				# print "Ordered_ID: ", workout.Ordered_ID
+				# print "Week: ", workout.Week
+				# print "Day: ", workout.Day
+				# print "Sets: ", workout.Sets
+				# print "Date: ", workout.Date
+				# print "_Date: ", workout._Date
+				subworkout_list = workout.SubWorkouts.all()
+				subworkout_counter = 0 
+				 
+				for subworkout in subworkout_list: 
+					subworkoutDict = {
+						'level': str(workout.Level),
+						'exercise_type': subworkout.Exercise_Type,
+						'exercise_name': subworkout.Exercise.Name,
+						'sets': str(subworkout.Sets),
+						'reps': str(subworkout.Reps),
+						'date': workout._Date
+					}
+					workoutDict[subworkout_counter] = subworkoutDict
+					# print "SUBWORKOUT: ", subworkout_counter
+					# print "Exercise Name: ", subworkout.Exercise.Name
+					# print "Sets: ", subworkout.Sets
+					# print "Reps: ", subworkout.Reps
+					# print "Level: ", subworkout.Exercise.Level
+					subworkout_counter += 1
+
+			print workoutDict
+
+
+			# if (Workout.objects.filter(_Date=test_var)).exists():
+			# 	_Workout = Workout.objects.get(_Date=test_var)
+			# 	print("Workout Level: " + str(_Workout.Level))
+			# 	_Level = _Workout.Level
+			# 	_Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
+			# 	output['level'] = str(_Level)
+			# 	output['exercise'] = _Exercise_Name
 
 			# Include Model filtering here based on test_var
 		
 			# Only for one row 
-			return JsonResponse(output)
+			return JsonResponse(workoutDict)
 		else: 
 			return JsonResponse({'status': 'fail'})	
 

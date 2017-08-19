@@ -7,7 +7,10 @@ from django.contrib.auth.models import User, Group
 class Member(models.Model):
 	User = models.OneToOneField(User)
 	Level = models.IntegerField(default=0)
+	# Password
+	# Email
 
+# Specific exercise as in 'All Levels'
 class Exercise(models.Model):
 	# ID = models.CharField(default="", max_length=20)
 	New_Code = models.CharField(default="", max_length=20)
@@ -16,6 +19,7 @@ class Exercise(models.Model):
 	Type = models.CharField(default="", max_length=200)
 	Level = models.IntegerField(default=0)
 	Bodyweight = models.BooleanField(default=False)
+
 
 class Set(models.Model):
 	Sets = models.IntegerField(default=0)
@@ -27,6 +31,7 @@ class Set(models.Model):
 	Rest_Time = models.DurationField(default=datetime.timedelta(minutes=2, seconds=0))
 	Order = models.IntegerField(default=0)
 
+# Row in each table in 'Program'
 class SubWorkout(models.Model):
 	# Workout = models.OneToOneField(Workout, default="")
 	# Exercise = models.OneToOneField(Exercise, default="", null=True, blank=True)
@@ -39,6 +44,7 @@ class SubWorkout(models.Model):
 	Deload = models.IntegerField(default=0)
 	Money = models.IntegerField(default=0)
 
+# One page in 'Program'
 class Workout_Template(models.Model):
 	Level_Group = models.IntegerField(default=0)
 	Level = models.IntegerField(default=0)
