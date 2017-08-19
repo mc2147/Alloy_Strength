@@ -9,6 +9,9 @@ class Member(models.Model):
 	Level = models.IntegerField(default=0)
 
 class Exercise(models.Model):
+	# ID = models.CharField(default="", max_length=20)
+	New_Code = models.CharField(default="", max_length=20)
+	Code = models.CharField(default="", max_length=20)
 	Name = models.CharField(default="", max_length=200)
 	Type = models.CharField(default="", max_length=200)
 	Level = models.IntegerField(default=0)
@@ -32,7 +35,9 @@ class SubWorkout(models.Model):
 	Sets = models.IntegerField(default=0)
 	Reps = models.IntegerField(default=0)
 	Order = models.IntegerField(default=0)
-	RPE = models.IntegerField(default=0)
+	RPE = models.CharField(default="", max_length=3)
+	Deload = models.IntegerField(default=0)
+	Money = models.IntegerField(default=0)
 
 class Workout_Template(models.Model):
 	Level_Group = models.IntegerField(default=0)

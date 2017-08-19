@@ -1,11 +1,44 @@
 {% load static %}
-<p>Test Page</p>
+<!-- <p>Test Page</p>
 <p>{{Test}}</p>
 <form method="GET" id="form_test" name="form_test">
 	<input id="test_button" name="test_button" type="submit" value="Update"></input>
 </form>
+ -->
+<form method="GET">
 
-<h2>Exercises</h2>
+	Level: <input style="margin-bottom:5px; width:60px;" id="Level" name="Level" type="number" placeholder="Level"></input>
+	<br>
+    <br>
+	Start Date: 
+	<input style="width:60px;" id="Year" name="Year" type="number" placeholder="YYYY"></input>
+	<input style="width:40px;" id="Month" name="Month" type="number" placeholder="MM"></input>
+	<input style="width:40px;" id="Day" name="Day" type="number" placeholder="DD"></input>
+    <br>
+    <br>
+	Workout Days: 
+    <select name="Day_1">
+    {% for Day in Days_Of_Week %}
+    <option value="{{Day.1}}">{{Day.0}}</option>
+    {% endfor %}
+    </select> 
+    <select name="Day_2">
+    {% for Day in Days_Of_Week %}
+    <option value="{{Day.1}}">{{Day.0}}</option>
+    {% endfor %}
+    </select> 
+    <select name="Day_3">
+    {% for Day in Days_Of_Week %}
+    <option value="{{Day.1}}">{{Day.0}}</option>
+    {% endfor %}
+    </select> 
+    <br>
+    <br>
+	<input id="Create_Workout" name="Create_Workout" type="submit" value="Create Workout"></input>
+</form>
+
+
+<h2>Sample Workout Plan</h2>
 {% for row in Exercises %}
 <tr> <td>Level: {{row.0}}</td> <td>Category: {{row.1}} </td> 
 {% endfor %}

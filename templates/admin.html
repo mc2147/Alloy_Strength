@@ -4,7 +4,7 @@
 <a>Levels 6-10</a> <a>Levels 11-15</a> <a>Levels 16-25</a>
 <br>
 <br>
-<a>Exercises</a> 
+<a href="/admin-exercises">Exercises</a> 
 
 <h1>Levels 1 to 5</h1>
 
@@ -56,7 +56,42 @@
 </form>
 {{Set_Added}} -->
 
-<div style="display:inline-block;">
+<!-- <div style="width:30%; vertical-align:top;"> -->
+      <h2>Edit Workouts Test</h2>
+      {% for Week in Workout_Templates %}
+      <h3 style="margin-bottom:2px;">{{Week.0}}</h3>
+      {% for Day in Week.1 %}
+      <div style="display:inline-block;">
+      <form method="GET" style="display:inline-block; margin-right:10px;">
+      <h4 style="margin-bottom:2px; margin-top:2px;">{{Day.0}}</h4>
+          <div style="margin-right:55px; float:left;">&nbsp </div> 
+          Exercise Type | Sets x Reps &nbsp | RPE | Deload | Money<br>
+            {% for Sub in Day.1 %}
+            {{Sub.3}}
+       <!-- {{Sub.0}} {{Sub.4}} {{Sub.2}}            -->
+          <select name="Type_{{Sub.5}}">
+            <option value="{{Sub.0}}">{{Sub.0}}</option>
+            {% for Type in Exercise_Types %}
+            <option value="{{Type}}">{{Type}}</option>
+            {% endfor %}
+          </select> 
+          <input style="width:40px;" type="text" placeholder="{{Sub.4}}" name="Sets_{{Sub.5}}">
+          x
+          <input style="width:40px;" type="text" placeholder="{{Sub.2}}" name="Reps_{{Sub.5}}">
+          <input style="width:40px;" type="text" placeholder="{{Sub.6}}" name="RPE_{{Sub.5}}">
+          <input style="width:40px;" type="text" placeholder="{{Sub.7}}" name="Deload_{{Sub.5}}">
+          <input style="width:40px; margin-left:10px;" type="text" placeholder="{{Sub.8}}" name="Money_{{Sub.5}}">
+          <br>
+        {% endfor %}    
+         <input type="submit" name="{{Week.2}}{{Day.2}}_Update_Workout" value="Update">
+      </div>
+        </form>
+         {% endfor %} <!-- Day Loop End  -->
+      {% endfor %}
+<!-- </div> -->
+
+
+<!-- <div style="display:inline-block;">
       <h2>Edit Workouts</h2>
       {% for Week in Weeks %}
       <h3 style="margin-bottom:2px;">{{Week.0}}</h3>
@@ -66,14 +101,14 @@
       <h4 style="margin-bottom:2px; margin-top:2px;">{{Row.0}}</h4>
         <div style="margin-right:55px; float:left;">&nbsp </div> 
         Exercise Type | Sets x Reps:<br>
-
-        {% for Sets in Sets_Per_Workout %}
+ -->
+<!--         {% for Sets in Sets_Per_Workout %}
         {{Sets.0}}  
           <select name="Type_{{Sets.1}}">
-
+ -->
           <!-- <option value="Test">Test</option> -->
 
-          {% for Type in Exercise_Types %}
+         <!--  {% for Type in Exercise_Types %}
           <option value="{{Type}}">{{Type}}</option>
           {% endfor %}
           </select> 
@@ -84,10 +119,13 @@
         {% endfor %}    
          <input type="submit" name="{{Week.1}}{{Row.1}}_Update_Workout" value="Update">
          </form>
-         {% endfor %} <!-- Day Loop End  -->
-      </div>
+         {% endfor %} 
+          --><!-- Day Loop End  -->
+<!--       </div>
       {% endfor %}
 </div>
+ -->
+
 
 <div style="display:inline-block; width:30%; vertical-align:top;">
       <h2>Current Workouts</h2>

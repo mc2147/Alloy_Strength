@@ -35,16 +35,43 @@ def Generate_Workouts(Start_Date, Level, Days_List):
 		# 	Give member option to choose one of the 3-4 Days to start on
 		# 2. Get all workout days...
 		# Order the workouts
+		# _Templates = Workout_Template.objects.filter(Level_Group = 1)
+
+		# for i in _Templates:
+		# 	print("Existing Workout Template: " + "Week " + str(i.Week) + " Day " 
+		# 	+ str(i.Day) + " Ordered ID: " + str(i.Ordered_ID) + " Level Group: " + str(i.Level_Group))
 		count = 0
+		print("Program Start Date: " + Start_Date.strftime('%m/%d/%Y'))		
+		print("Selected Workout Days: ")		
+		_Days = []
+		for x in Days:
+			_Days.append(Days_Of_Week[x])
+		print(_Days)
+
 		for i in range(1, 29): #i will be from 1 to 28
 			if (Start_Date + timedelta(days=i)).weekday() in Days:
 				Workout_Date = Start_Date + timedelta(days=i)
-				count += 1
+				count += 1				
 				string_date = Workout_Date.strftime('%m/%d/%Y')
-				# _Template = Workout_Template.objects.get(Level_Group=1, Ordered_ID = count)
-				# _Workout = Workout(Template=_Template, _Date=string_date)
-				# _Workout.save()
-				print(Workout_Date.strftime('%m/%d/%Y'))
+
+				_Workout_Template = Workout_Template.objects.get(Level_Group=1, Ordered_ID=count)
+				# print("Workout Template: " + "Week " + str(_Workout_Template.Week) + " Day " 
+				# + str(_Workout_Template.Day) + " Ordered ID: " + str(_Workout_Template.Ordered_ID) + " Level Group: " + str(_Workout_Template.Level_Group))				
+
+				_Workout = Workout(Template=_Workout_Template, _Date=string_date, Level = Level)
+				_Workout.save()
+
+				for x in _Workout.Template.SubWorkouts.all():
+					_Type = x.Exercise_Type
+					x.Exercise = Exercise.objects.get(Type = _Type, Level = Level)
+					x.save()
+					_Workout.SubWorkouts.add(x)
+					_Workout.save()
+				print("Level " + str(_Workout.Level) + " Workout Created For: " + _Workout._Date + " (Week " + str(_Workout.Template.Week) + " Day " + str(_Workout.Template.Day) + ")")
+				# print("Sets and Reps: ")
+				for z in _Workout.SubWorkouts.all():
+					print(z.Exercise.Name + " " + str(z.Sets) + " x " + str(z.Reps))
+				# print(string_date)
 				Output.append(string_date)
 		return(Output)
 	elif Level >= 6 and Level <= 10:
@@ -58,11 +85,45 @@ def Generate_Workouts(Start_Date, Level, Days_List):
 
 def Test(request):
 	context = {}
-	print(Generate_Workouts(datetime(2017, 8, 1), 1, [0, 2, 4]))
+	context["Days_Of_Week"] = [["Monday", 0],["Tuesday", 1], ["Wednesday", 2], ["Thursday", 3], ["Friday", 4], ["Saturday", 5], ["Sunday", 6]]
+	if request.GET.get("Create_Workout"):
+		_Level = int(request.GET.get("Level"))
+		_Year = request.GET.get("Year")
+		_Month = request.GET.get("Month")
+		_Day = request.GET.get("Day")
+
+		Day_1 = int(request.GET.get("Day_1"))
+		Day_2 = int(request.GET.get("Day_2"))
+		Day_3 = int(request.GET.get("Day_3"))
+
+		print(Day_1)
+		print(Day_2)
+		print(Day_3)
+
+		Year = int(_Year)
+		if _Month[0] == '0':
+			Month = int(_Month[1])
+		else:
+			Month = int(_Month)
+		if _Day[0] == '0':
+			Day = int(_Day[1])
+		else:
+			Day = int(_Day)
+
+		_Workout_Templates = Workout_Template.objects.filter(Level_Group = 1)
+
+		for i in _Workout_Templates:
+			print("Existing Workout Template: " + "Week " + str(i.Week) + " Day " 
+			+ str(i.Day) + " Ordered ID: " + str(i.Ordered_ID) + " Level Group: " + str(i.Level_Group))
+
+		print(_Level)
+		print(Year)
+		print(Month)
+		print(Day)
+
+		print(Generate_Workouts(datetime(Year, Month, Day), _Level, [Day_1, Day_2, Day_3]))
+		return HttpResponseRedirect('/test/')
 	return render(request, "test.html", context)
-
-
-
 
 
 @csrf_exempt 
@@ -76,24 +137,28 @@ def Workout_Update(request):
 			print test_var
 			print isinstance(test_var, basestring)
 
+			output = {
+				'status': 'success',
+				'pattern': 'pattern:' + test_var,
+				'level': 'level' + test_var, 
+				'exercise': 'level' + test_var, 
+				'weight': 'weight: ' + test_var, 
+				'rpe': 'rpe: ' + test_var, 
+				'tempo': 'tempo: ' + test_var,
+				}
+
 			if (Workout.objects.filter(_Date=test_var)).exists():
 				_Workout = Workout.objects.get(_Date=test_var)
 				print("Workout Level: " + str(_Workout.Level))
 				_Level = _Workout.Level
 				_Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
+				output['level'] = str(_Level)
+				output['exercise'] = _Exercise_Name
 
 			# Include Model filtering here based on test_var
 		
 			# Only for one row 
-			return JsonResponse({
-				'status': 'success',
-				'pattern': 'pattern:' + test_var,
-				'level': str(_Level), 
-				'exercise': _Exercise_Name, 
-				'weight': 'weight: ' + test_var, 
-				'rpe': 'rpe: ' + test_var, 
-				'tempo': 'tempo: ' + test_var,
-				})
+			return JsonResponse(output)
 		else: 
 			return JsonResponse({'status': 'fail'})	
 
@@ -174,15 +239,22 @@ def Admin(request):
 	# Set - 0 to 5
 
 	context["Workout_Templates"] = [
-	["Week 1", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
-	["Week 2", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
-	["Week 3", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]], 
-	["Week 4", [["Day 1", [[], [], [], [], [], []]], ["Day 2", [[], [], [], [], [], []]], ["Day 3", [[], [], [], [], [], []]]]]]
+	["Week 1", [["Day 1", [[], [], [], [], [], []], "D1"], ["Day 2", [[], [], [], [], [], []], "D2"], ["Day 3", [[], [], [], [], [], []], "D3"]], "W1"], 
+	["Week 2", [["Day 1", [[], [], [], [], [], []], "D1"], ["Day 2", [[], [], [], [], [], []], "D2"], ["Day 3", [[], [], [], [], [], []], "D3"]], "W2"], 
+	["Week 3", [["Day 1", [[], [], [], [], [], []], "D1"], ["Day 2", [[], [], [], [], [], []], "D2"], ["Day 3", [[], [], [], [], [], []], "D3"]], "W3"], 
+	["Week 4", [["Day 1", [[], [], [], [], [], []], "D1"], ["Day 2", [[], [], [], [], [], []], "D2"], ["Day 3", [[], [], [], [], [], []], "D3"]], "W4"]]
 
 	for i in Workout_Template.objects.all():
 		_week_index = i.Week - 1 #Workout_Templates[index]
 		_day_index = i.Day - 1 #Workout_Templates[week][1][_day_index]		
-		print("Existing Workout Template: " + "Week " + str(i.Week) + " Day " + str(i.Day) + " Ordered ID: " + str(i.Ordered_ID))
+
+		# i.Level_Group = 1
+		# i.save()
+		print("Existing Workout Template: " + "Week " + str(i.Week) + " Day " + str(i.Day) + " Ordered ID: " + str(i.Ordered_ID) + " Level Group: " + str(i.Level_Group))
+
+		Num_Sets = i.SubWorkouts.all().count()
+		Empty_Sets = 6 - i.SubWorkouts.all().count()
+
 		for x in i.SubWorkouts.all():			
 			_exercise_type = x.Exercise_Type
 			_sets = x.Sets
@@ -190,7 +262,23 @@ def Admin(request):
 			_order = x.Order
 			print(x.Exercise_Type + " " + str(x.Sets) + " x " + str(x.Reps)) + " (Set " + str(x.Order) + ")"
 			_subworkout_index = x.Order - 1
-			context["Workout_Templates"][_week_index][1][_day_index][1][_subworkout_index] = [_exercise_type, str(_sets) + " x ", _reps, "Set " + str(_order) + ":"]
+			_rpe = ""
+			_deload = ""
+			_money = ""
+			if x.RPE != 0:
+				_rpe = x.RPE
+			if x.Deload != 0:
+				_deload = x.Deload
+			if x.Money != 0:
+				_money = str(x.Money) + "+" 
+			context["Workout_Templates"][_week_index][1][_day_index][1][_subworkout_index] = [_exercise_type, str(_sets) + " x ", 
+			_reps, "Set " + str(_order) + ":", _sets, _order, _rpe, _deload, _money]
+
+		for y in range(1, Empty_Sets + 1):
+			Empty_Index = Num_Sets - 1 + y
+			context["Workout_Templates"][_week_index][1][_day_index][1][Empty_Index] = ["", "", "", "Set " + str(Empty_Index + 1) + ":", "", Empty_Index + 1, "", "", ""]
+
+
 
 	for i in context["Weeks"]:
 		for y in context["Days"]:
@@ -210,37 +298,63 @@ def Admin(request):
 			if request.GET.get(btn_code):
 				print(btn_code)
 				for z in range(1,7):
-					if (_Workout_Template.SubWorkouts.all().filter(Order = z).exists()):
-						_Placeholder_SubWorkout = _Workout_Template.SubWorkouts.all().get(Order = z)
+					# if (_Workout_Template.SubWorkouts.all().filter(Order = z).exists()):
+					# 	_Placeholder_SubWorkout = _Workout_Template.SubWorkouts.all().get(Order = z)
 						
-						_Type = _Placeholder_SubWorkout.Exercise_Type
-						_Sets = _Placeholder_SubWorkout.Sets
-						_Reps = _Placeholder_SubWorkout.Reps
+					# 	_Type = _Placeholder_SubWorkout.Exercise_Type
+					# 	_Sets = _Placeholder_SubWorkout.Sets
+					# 	_Reps = _Placeholder_SubWorkout.Reps
 						# context["Placeholders"][_week - 1][_day - 1][z - 1] = [_Type, _Sets, _Reps]
-
 					_sets = "Sets_" + str(z)
 					_reps = "Reps_" + str(z)
 					_type = "Type_" + str(z)					
-					if (request.GET.get(_sets) != "" and request.GET.get(_reps) != ""):
+					_rpe = "RPE_" + str(z)
+					_deload = "Deload_" + str(z)
+					_money = "Money_" + str(z)
+					if (request.GET.get(_type) != "" and (request.GET.get(_sets) != "" or request.GET.get(_reps) != ""
+						or request.GET.get(_rpe) != "" or request.GET.get(_deload) != "" or request.GET.get(_money) != "")):
 						print(request.GET.get(_sets))
 						print(request.GET.get(_reps))
 						print(request.GET.get(_type))
+						print(request.GET.get(_rpe))
+						print(request.GET.get(_money))
 						_Sets_ = request.GET.get(_sets)
 						_Reps_ = request.GET.get(_reps)
 						_Type_ = request.GET.get(_type)
+						_RPE = request.GET.get(_rpe)
+						_Deload = request.GET.get(_deload)
+						_Money = request.GET.get(_money)
 						print("test")
 						print(i[0] + " " + y[0] + " Subworkout " + str(z) + ": " 
 						+ request.GET.get(_type) + " "
 						+ str(request.GET.get(_sets)) + " x " + str(request.GET.get(_reps)))
-						_SubWorkout = SubWorkout(Exercise_Type = _Type_, Sets = _Sets_, Reps = _Reps_, Order = z)
+						_SubWorkout = SubWorkout(Exercise_Type = _Type_, Order = z)
+						if _Sets_ != "":
+							_SubWorkout.Sets = _Sets_
+						if _Reps_ != "":
+							_SubWorkout.Reps = _Reps_
+						if _RPE != "":
+							_SubWorkout.RPE = _RPE
+						if _Deload != "":
+							_SubWorkout.Deload = _Deload 
+						if _Money != "":
+							_SubWorkout.Money = _Money
 						_SubWorkout.save()
 						if (_Workout_Template.SubWorkouts.all().filter(Order = z).exists()):
 							print("Exists")							
 							_Edit_SubWorkout = _Workout_Template.SubWorkouts.all().get(Order = z)
 
 							_Edit_SubWorkout.Exercise_Type = _Type_
-							_Edit_SubWorkout.Sets = _Sets_
-							_Edit_SubWorkout.Reps = _Reps_
+							if _Sets_ != "":
+								_Edit_SubWorkout.Sets = _Sets_
+							if _Reps_ != "":
+								_Edit_SubWorkout.Reps = _Reps_
+							if (_RPE != ""):
+								_Edit_SubWorkout.RPE = _RPE
+							if _Deload != "":
+								_Edit_SubWorkout.Deload = _Deload 								
+							if _Money != "":
+								_Edit_SubWorkout.Money = _Money
 							_Edit_SubWorkout.save()
 							_Workout_Template.save()
 						else:
@@ -461,4 +575,80 @@ def Admin(request):
 		return HttpResponseRedirect("/admin-site")
 		# return render(request, "admin.html", context)	
 	return render(request, "admin.html", context)
+
+Level_Group_1_Exercises = [["UB Hor Push", "UB Vert Push",  "UB Hor Pull", "UB Vert Pull",  "Hinge", "Squat"], 
+["LB Uni Push", "Ant Chain", "Post Chain",  "Isolation", "Iso 2", "Iso 3", "Iso 4"]]
+
+def AdminExercises(request):
+	context = {}
+
+	LG_1_Exercises = [
+	[["UB Hor Push", ["", "", "", "", ""], "HPush"], ["UB Vert Push", ["", "", "", "", ""], "VPush"],  
+	["UB Hor Pull", ["", "", "", "", ""], "HPull"], ["UB Vert Pull", ["", "", "", "", ""], "VPull"], 
+	["Hinge", ["", "", "", "", ""], "H"], ["Squat", ["", "", "", "", ""], "S"]],
+
+	[["LB Uni Push", ["", "", "", "", ""], "UniPush"], ["Ant Chain", ["", "", "", "", ""], "AC"], 
+	["Post Chain", ["", "", "", "", ""], "PC"], ["Isolation", ["", "", "", "", ""], "I1"], 
+	["Iso 2", ["", "", "", "", ""], "I2"], ["Iso 3", ["", "", "", "", ""], "I3"], 
+	["Iso 4", ["", "", "", "", ""], "I4"]]]
+
+
+	for Group in LG_1_Exercises:
+		for x in Group:
+		# for x in LG_1_Exercises[0]:
+			_Type = x[0]
+			for n in range(1, 6):
+				# Input_Code = "L" + str(n) + x[2]
+				# print(Input_Code)
+				if Exercise.objects.filter(Type = _Type, Level = n).exists():
+					_Exercise = Exercise.objects.get(Type = _Type, Level = n)
+					x[1][n - 1] = _Exercise.Name
+					print(_Exercise.Name)
+				else:
+					x[1][n - 1] = "Level " + str(n) + " Exercise"
+
+	if request.GET.get("Update_Exercises"):
+		for Group in LG_1_Exercises:
+			for x in Group:
+		# for x in LG_1_Exercises[0]:
+				_Type = x[0]
+				_ID = x[2]
+				print(_ID)
+				for n in range(1, 6):
+					Input_Code = "L" + str(n) + x[2]
+					# print(Input_Code)
+					if request.GET.get(Input_Code) != "":
+						_Name = request.GET.get(Input_Code)
+						print(Input_Code + " : " + _Name)
+						if Exercise.objects.filter(Type = x[0], Level = n).exists():
+							_Exercise = Exercise.objects.get(Type = _Type, Level = n)
+							_Exercise.Name = _Name
+							_Exercise.Code = Input_Code
+							_Exercise.save()
+						else:
+							_Exercise = Exercise(Type = x[0], Level = n, Name = _Name, Code = Input_Code)
+							_Exercise.save()
+		return HttpResponseRedirect("/admin-exercises")
+
+	context["Exercises_1"] = LG_1_Exercises[0]
+	context["Exercises_2"] = LG_1_Exercises[1]
+
+	context["Levels"] = [[1, []],[2, []],[3, []],[4, []],[5, []]]
+
+	Exercises_List_1 = []
+
+	for i in Exercise.objects.all():
+		row = []
+		row.append(i.Type)
+		row.append(i.Level)
+		row.append(i.Name)
+		row.append(i.Bodyweight)
+		print(row)
+		Exercises_List_1.append(row)
+
+
+	return render(request, "adminexercises.html", context)
+
+
+
 
