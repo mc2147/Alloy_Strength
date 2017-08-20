@@ -25,6 +25,10 @@ img {
 	left: 80%;
 }
 
+table {
+	text-align: center;
+}
+
 .editable_div {
 	display: inline-block;
 }
@@ -77,7 +81,6 @@ textarea:focus {
 }
 
 table.ui-datepicker-calendar{
-    font-size: 0.75vw;
     width: 100%;
     height: auto;
     border-collapse: collapse;
@@ -94,6 +97,20 @@ table.ui-datepicker-calendar th {
 	font-style: bold;
 	background-color: cornflowerblue;
 
+}
+
+.ui-state-default {
+	margin: 0 auto;
+	padding: 0.5vw;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+    height: 1.4vw;
+    width: 1.4vw;
+    font-size: 0.75vw;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
 }
 
 
