@@ -126,6 +126,50 @@
 
 <script>
 
+
+   $('#datepicker').datepicker({
+        beforeShow: function(input, inst) {
+            if ($('#ui-datepicker-div .ui-datepicker-calendar').is(':visible')) {
+                console.log("The calendar is visible"); 
+            }
+        }
+    });
+
+
+
+    $('#datepicker').each(function() {
+        console.log("I'm in here!"); 
+    });
+
+    // use 'safe' for json 
+    var final_list = {{ final_list | safe }};
+    console.log(final_list); 
+    console.log(typeof parseInt("01", 10).toString()); 
+
+    var final_list_len = final_list.length; 
+
+    for (i = 0; i < final_list_len; i++) {
+        var final_list_date = final_list[i]; 
+        var month = parseInt(final_list_date.month, 10).toString(); 
+        var month_zero_index = (parseInt(final_list_date.month, 10) - 1).toString(); 
+        var day = parseInt(final_list_date.day, 10).toString(); 
+        var year = parseInt(final_list_date.year, 10).toString(); 
+        $('[data-year=' + year + '][data-month=' + 
+            month_zero_index + ']').each(function() {
+            if ($(this).children('.ui-state-default').text() == day) {
+                $(this).children('.ui-state-default').css('background-color', 'cornflowerblue'); 
+            }
+        })
+    }
+
+    // $('[data-year]').each(function() {
+    //     console.log($(this).attr('data-year'));
+    //     console.log($(this).attr('data-month')); 
+    //     console.log($(this).children('.ui-state-default').text()); 
+    // });
+
+    
+
     var vm = new Vue({
         el: '.table_calendar',
         delimiters: ['${', '}'],

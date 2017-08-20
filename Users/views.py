@@ -6,13 +6,25 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, time, timedelta
+import json
 
 Exercise_Types = ["UB Hor Push", "UB Vert Push",  "UB Hor Pull", "UB Vert Pull",  "Hinge", "Squat", "LB Uni Push", 
 "Ant Chain", "Post Chain",  "Isolation", "Iso 2", "Iso 3", "Iso 4", "RFL Load", "RFD Unload 1", "RFD Unload 2"]
 
 def User_Page(request): 
-	test_var = "" 
-	return render(request, "userpage.html", {'test_var': test_var})
+	workout_date_list = Workout.objects.values_list('_Date', flat=True).distinct()
+	final_list = []
+
+	for workout_date in workout_date_list:
+		parsed_date_list = workout_date.split('/')
+		parsed_date_dict = {}
+		if (len(parsed_date_list) == 3): 
+			parsed_date_dict[str('month')] = str(parsed_date_list[0])
+			parsed_date_dict[str('day')] = str(parsed_date_list[1])
+			parsed_date_dict[str('year')] = str(parsed_date_list[2])
+			final_list.append(parsed_date_dict)
+
+	return render(request, "userpage.html", {'final_list': json.dumps(final_list)})
 
 
 def Videos(request): 
@@ -158,6 +170,7 @@ def Workout_Update(request):
 				subworkout_counter = 0 
 				 
 				for subworkout in subworkout_list: 
+
 					subworkoutDict = {
 						'level': str(workout.Level),
 						'exercise_type': subworkout.Exercise_Type,
