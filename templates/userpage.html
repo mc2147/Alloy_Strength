@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
 
 
     <!-- Material Design code -->
@@ -126,60 +127,10 @@
 
 <script>
 
-
-   $('#datepicker').datepicker({
-        beforeShow: function(input, inst) {
-            if ($('#ui-datepicker-div .ui-datepicker-calendar').is(':visible')) {
-                console.log("The calendar is visible"); 
-            }
-        }
-    });
-
-
-
-    $('#datepicker').each(function() {
-        console.log("I'm in here!"); 
-    });
-
-    // use 'safe' for json 
-    var final_list = {{ final_list | safe }};
-    console.log(final_list); 
-    console.log(typeof parseInt("01", 10).toString()); 
-
-    var final_list_len = final_list.length; 
-
-    for (i = 0; i < final_list_len; i++) {
-        var final_list_date = final_list[i]; 
-        var month = parseInt(final_list_date.month, 10).toString(); 
-        var month_zero_index = (parseInt(final_list_date.month, 10) - 1).toString(); 
-        var day = parseInt(final_list_date.day, 10).toString(); 
-        var year = parseInt(final_list_date.year, 10).toString(); 
-        $('[data-year=' + year + '][data-month=' + 
-            month_zero_index + ']').each(function() {
-            if ($(this).children('.ui-state-default').text() == day) {
-                $(this).children('.ui-state-default').css('background-color', 'cornflowerblue'); 
-            }
-        })
-    }
-
-    // $('[data-year]').each(function() {
-    //     console.log($(this).attr('data-year'));
-    //     console.log($(this).attr('data-month')); 
-    //     console.log($(this).children('.ui-state-default').text()); 
-    // });
-
-    
-
     var vm = new Vue({
         el: '.table_calendar',
         delimiters: ['${', '}'],
         data: {
-            // pattern: "pattern",
-            // level: "level", 
-            // exercise: "exercise", 
-            // weight: "weight", 
-            // rpe: "rpe", 
-            // tempo: "tempo"
             row1: {
                 'level': '',
                 'exercise_type': '',
@@ -223,89 +174,132 @@
         }
     });
 
-    console.log(vm); 
 
-    $( function() {
-        $( "#datepicker" ).datepicker();
-
-        var currentDate = $( "#datepicker" ).val()
-
-        $( "#date_text" ).text(currentDate);
-
-        // Get selected date
-        // reference: https://stackoverflow.com/questions/26667720/how-to-get-the-selected-date-from-jquery-datepicker
-
-        console.log(currentDate);
-
+    function updateTempDate(){
+        var TempDate = $( "#date_text" ).text(); 
+        var data = {'TempDate': TempDate};
         var URL = "{% url 'userpageUpdate' %}";
+        console.log("I'm in updateTempDate"); 
+        $.post(URL, data, function(response){
+            // console.log(response); 
+            // console.log(JSON.stringify(response));
+            response1 = response[0];
+            console.log(response1); 
+            vm.row1.exercise_type = response1.exercise_type;
+            vm.row1.level = response1.level;
+            vm.row1.exercise_name = response1.exercise_name; 
+            vm.row1.reps = response1.reps;
 
 
-        function updateTempDate(){
-            var TempDate = $( "#date_text" ).text(); 
-            var data = {'TempDate': TempDate};
-            console.log("I'm in updateTempDate"); 
-            $.post(URL, data, function(response){
-                // console.log(response); 
-                // console.log(JSON.stringify(response));
-                response1 = response[0];
-                console.log(response1); 
-                vm.row1.exercise_type = response1.exercise_type;
-                vm.row1.level = response1.level;
-                vm.row1.exercise_name = response1.exercise_name; 
-                vm.row1.reps = response1.reps;
+            response2 = response[1];
+            vm.row2.exercise_type = response2.exercise_type;
+            vm.row2.level = response2.level;
+            vm.row2.exercise_name = response2.exercise_name; 
+            vm.row2.reps = response2.reps;
 
 
-                response2 = response[1];
-                vm.row2.exercise_type = response2.exercise_type;
-                vm.row2.level = response2.level;
-                vm.row2.exercise_name = response2.exercise_name; 
-                vm.row2.reps = response2.reps;
+            response3 = response[2];
+            vm.row3.exercise_type = response3.exercise_type;
+            vm.row3.level = response3.level;
+            vm.row3.exercise_name = response3.exercise_name; 
+            vm.row3.reps = response3.reps;
 
 
-                response3 = response[2];
-                vm.row3.exercise_type = response3.exercise_type;
-                vm.row3.level = response3.level;
-                vm.row3.exercise_name = response3.exercise_name; 
-                vm.row3.reps = response3.reps;
+            response4 = response[3];
+            vm.row4.exercise_type = response4.exercise_type;
+            vm.row4.level = response4.level;
+            vm.row4.exercise_name = response4.exercise_name; 
+            vm.row4.reps = response4.reps;
 
 
-                response4 = response[3];
-                vm.row4.exercise_type = response4.exercise_type;
-                vm.row4.level = response4.level;
-                vm.row4.exercise_name = response4.exercise_name; 
-                vm.row4.reps = response4.reps;
-
-
-                response5 = response[4];
-                vm.row5.exercise_type = response5.exercise_type;
-                vm.row5.level = response5.level;
-                vm.row5.exercise_name = response5.exercise_name; 
-                vm.row5.reps = response5.reps;
-
-                // vm.level = response.level;
-                // vm.exercise = response.exercise; 
-                // vm.weight = response.weight;
-                // vm.rpe = response.rpe; 
-                // vm.tempo = response.tempo; 
-            });
-        }
-
-        $(document).ready(function(){
-            $("#datepicker").on("change",function() {
-                var newDate = $(this).val();
-                $( "#date_text" ).text(newDate);
-                updateTempDate(); 
-                console.log(vm); 
-            })
+            response5 = response[4];
+            vm.row5.exercise_type = response5.exercise_type;
+            vm.row5.level = response5.level;
+            vm.row5.exercise_name = response5.exercise_name; 
+            vm.row5.reps = response5.reps;
 
         });
+    }
 
 
+  $(function() {
+        $('#datepicker').datepicker({
+            beforeShowDay: function (date) {
+
+                // Get selected date
+                // reference: https://stackoverflow.com/questions/26667720/how-to-get-the-selected-date-from-jquery-datepicker
+
+                var currentDate = $( "#datepicker" ).val();
+                $( "#date_text" ).text(currentDate);
+
+                // Reference: https://stackoverflow.com/questions/17863924/jquery-datepicker-add-class-to-first-17-days
+                var final_list = {{ final_list | safe }};
+                var final_list_len = final_list.length; 
+
+                var workout_list = [] 
+
+                for (i = 0; i < final_list_len; i++) {
+                    var workout_date = final_list[i]
+                    var workout_string = workout_date.month + '/' + workout_date.day + '/' + workout_date.year;
+                    console.log("WORKOUT DAY", workout_string); 
+                    workout_list.push(new Date(workout_string)); 
+                };
+
+                var workout_list_len = workout_list.length; 
+
+                for (i = 0; i < workout_list_len; i++) {
+              
+                    // if workout date and date on the calendar are the same 
+                    if (workout_list[i].getTime() === date.getTime()){
+                        return [true, 'workout']; // set styling to 'workout' (see style tag below)
+                    }
+                };
+
+                return [true, ''];
+            },
+            onSelect: function (date) {
+                //var newDate = $(this).val();
+                $( "#date_text" ).text(date);
+                updateTempDate();
+            }
+         })
     });
+
+
+    (function ($) {
+        $.extend($.datepicker, {
+
+            // Reference the orignal function so we can override it and call it later
+            _inlineDatepicker2: $.datepicker._inlineDatepicker,
+
+            // Override the _inlineDatepicker method
+            _inlineDatepicker: function (target, inst) {
+
+                // Call the original
+                this._inlineDatepicker2(target, inst);
+
+                var beforeShow = $.datepicker._get(inst, 'beforeShow');
+
+                if (beforeShow) {
+                    beforeShow.apply(target, [target, inst]);
+                }
+            }
+        });
+    }(jQuery));
+
+
 </script>
 
 
 <style>
+    .workout .ui-state-default {
+        background-color: orange; 
+  
+    }
+
+    .today .ui-state-default {
+        border: 1px solid black;
+    }
 
 
 </style>
