@@ -2,6 +2,18 @@ body {
 	font-family: "Cabin", sans-serif;
 }
 
+#stats_info {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1vw;
+}
+
+#stats_info hr {
+	border: 1px solid rgb(83,109,254);
+	width: 80%;
+	margin: 0 auto;
+}
+
 h1 {
 	font-size: 2vw;
 	padding-top: 1vw;
@@ -50,8 +62,7 @@ table {
 	z-index: 9999;
 }
 
-
-#right_container{
+#right_container {
 	float: right;
 	width: 60%;
 }

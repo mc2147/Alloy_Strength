@@ -156,7 +156,7 @@ def Workout_Update(request):
 				 
 				for subworkout in subworkout_list: 
 					subworkoutDict = {
-						'level': str(workout.Level),
+						'level': str(workout.Level), # for now, extract levels for each subworkout
 						'exercise_type': subworkout.Exercise_Type,
 						'exercise_name': subworkout.Exercise.Name,
 						'sets': str(subworkout.Sets),

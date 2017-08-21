@@ -57,10 +57,14 @@
     </div>
 
     <div id='right_container'>
+        <div id='stats_info'>
+            <h3>Level: ${ level }</h3>
+            <hr>
+        </div>
+
         <table class='table_calendar'>
             <tr>
                 <th class='table_header'>Pattern</th>
-                <th class='table_header'>Level</th>
                 <th class='table_header'>Exercise</th>
                 <th class='table_header'>Reps</th>
                 <th class='table_header'>Weight</th>
@@ -71,7 +75,6 @@
             <!-- ROW 1 --> 
             <tr class='table_content'>
                 <th>${ row1.exercise_type }</th>
-                <td><div>${ row1.level }</div></td>
                 <td><div>${ row1.exercise_name }</div></td>
                 <td><div>${ row1.reps }</div></td>
                 <td><div></div></td>
@@ -82,7 +85,6 @@
             <!-- ROW 2 --> 
             <tr class='table_content'>
                 <th>${ row2.exercise_type }</th>
-                <td><div>${ row2.level }</div></td>
                 <td><div>${ row2.exercise_name }</div></td>
                 <td><div>${ row2.reps }</div></td>
                 <td><div></div></td>
@@ -93,7 +95,6 @@
             <!-- ROW 3 --> 
             <tr class='table_content'>
                 <th>${row3.exercise_type}</th>
-                <td><div>${ row3.level }</div></td>
                 <td><div>${ row3.exercise_name }</div></td>
                 <td><div>${ row3.reps }</div></td>
                 <td><div></div></td>
@@ -104,7 +105,6 @@
             <!-- ROW 4 --> 
             <tr class='table_content'>
                 <th>${ row4.exercise_type}</th>
-                <td><div>${ row4.level }</div></td>
                 <td><div>${ row4.exercise_name }</div></td>
                 <td><div>${ row4.reps }</div></td>
                 <td><div></div></td>
@@ -115,7 +115,6 @@
             <!-- ROW 5 --> 
             <tr class='table_content'>
                 <th>${ row5.exercise_type}</th>
-                <td><div>${ row5.level }</div></td>
                 <td><div>${ row5.exercise_name }</div></td>
                 <td><div>${ row5.reps }</div></td>
                 <td><div></div></td>
@@ -125,7 +124,7 @@
 
         </table>
 
-        <input type='button' id='update_table'> UPDATE TABLE</button>
+        <input type='button' value='UPDATE TABLE' id='update_table'></input>
 
     </div>
 
@@ -136,12 +135,19 @@
 
 <script>
 
-    var vm = new Vue({
+    var vm1 = new Vue({
+        el:'#stats_info',
+        delimiters: ['${', '}'],
+        data: {
+            level:''
+        }
+    });
+
+    var vm2 = new Vue({
         el: '.table_calendar',
         delimiters: ['${', '}'],
         data: {
             row1: {
-                'level': '',
                 'exercise_type': '',
                 'exercise_name': '',
                 'sets': '',
@@ -149,7 +155,6 @@
                 'rpe': ''
             },
             row2: {
-                'level': '',
                 'exercise_type': '',
                 'exercise_name': '',
                 'sets': '',
@@ -157,7 +162,6 @@
                 'rpe': ''
             },
             row3: {
-                'level': '',
                 'exercise_type': '',
                 'exercise_name': '',
                 'sets': '',
@@ -165,7 +169,6 @@
                 'rpe': ''
             },
             row4: {
-                'level': '',
                 'exercise_type': '',
                 'exercise_name': '',
                 'sets': '',
@@ -173,7 +176,6 @@
                 'rpe': ''
             },
             row5: {
-                'level': '',
                 'exercise_type': '',
                 'exercise_name': '',
                 'sets': '',
@@ -186,11 +188,11 @@
     function updateRPE() {
         var current_date = $( "#date_text" ).text(); 
         var URL = "{% url 'userpageRPEUpdate' %}"; 
-        var data = {'RPE_row1': vm.row1.rpe,
-                    'RPE_row2': vm.row2.rpe,
-                    'RPE_row3': vm.row3.rpe,
-                    'RPE_row4': vm.row4.rpe,
-                    'RPE_row5': vm.row5.rpe,
+        var data = {'RPE_row1': vm2.row1.rpe,
+                    'RPE_row2': vm2.row2.rpe,
+                    'RPE_row3': vm2.row3.rpe,
+                    'RPE_row4': vm2.row4.rpe,
+                    'RPE_row5': vm2.row5.rpe,
                     'current_date': current_date};
 
         $.post(URL, data, function(response){
@@ -202,49 +204,44 @@
         var TempDate = $( "#date_text" ).text(); 
         var data = {'TempDate': TempDate};
         var URL = "{% url 'userpageUpdate' %}";
+
         console.log("I'm in updateTempDate"); 
         $.post(URL, data, function(response){
-            // console.log(response); 
-            // console.log(JSON.stringify(response));
+     
             response1 = response[0];
-            console.log(response1); 
-            vm.row1.exercise_type = response1.exercise_type;
-            vm.row1.level = response1.level;
-            vm.row1.exercise_name = response1.exercise_name; 
-            vm.row1.reps = response1.reps;
-            vm.row1.rpe = response1.rpe;
+            vm1.level = response1.level; // all responses have levels, but for now, just display one 
+            vm2.row1.exercise_type = response1.exercise_type;
+            vm2.row1.exercise_name = response1.exercise_name; 
+            vm2.row1.reps = response1.reps;
+            vm2.row1.rpe = response1.rpe;
 
 
             response2 = response[1];
-            vm.row2.exercise_type = response2.exercise_type;
-            vm.row2.level = response2.level;
-            vm.row2.exercise_name = response2.exercise_name; 
-            vm.row2.reps = response2.reps;
-            vm.row2.rpe = response2.rpe;
+            vm2.row2.exercise_type = response2.exercise_type;
+            vm2.row2.exercise_name = response2.exercise_name; 
+            vm2.row2.reps = response2.reps;
+            vm2.row2.rpe = response2.rpe;
 
 
             response3 = response[2];
-            vm.row3.exercise_type = response3.exercise_type;
-            vm.row3.level = response3.level;
-            vm.row3.exercise_name = response3.exercise_name; 
-            vm.row3.reps = response3.reps;
-            vm.row3.rpe = response3.rpe;
+            vm2.row3.exercise_type = response3.exercise_type;
+            vm2.row3.exercise_name = response3.exercise_name; 
+            vm2.row3.reps = response3.reps;
+            vm2.row3.rpe = response3.rpe;
 
 
             response4 = response[3];
-            vm.row4.exercise_type = response4.exercise_type;
-            vm.row4.level = response4.level;
-            vm.row4.exercise_name = response4.exercise_name; 
-            vm.row4.reps = response4.reps;
-            vm.row4.rpe = response4.rpe;
+            vm2.row4.exercise_type = response4.exercise_type;
+            vm2.row4.exercise_name = response4.exercise_name; 
+            vm2.row4.reps = response4.reps;
+            vm2.row4.rpe = response4.rpe;
 
 
             response5 = response[4];
-            vm.row5.exercise_type = response5.exercise_type;
-            vm.row5.level = response5.level;
-            vm.row5.exercise_name = response5.exercise_name; 
-            vm.row5.reps = response5.reps;
-            vm.row5.rpe = response5.rpe; 
+            vm2.row5.exercise_type = response5.exercise_type;
+            vm2.row5.exercise_name = response5.exercise_name; 
+            vm2.row5.reps = response5.reps;
+            vm2.row5.rpe = response5.rpe; 
 
         });
     }
@@ -321,22 +318,17 @@
         });
     });
 
-
-
-
 </script>
 
 
 <style>
     .workout .ui-state-default {
         background-color: orange; 
-  
     }
 
     .today .ui-state-default {
         border: 1px solid black;
     }
-
 
 </style>
 
