@@ -26,13 +26,8 @@ def User_Page(request):
 
 	return render(request, "userpage.html", {'final_list': json.dumps(final_list)})
 
-
 def Videos(request): 
 	return render(request, "videos.html")
-
-# def Test(request):
-# 	return render(request, "")
-
 
 Days_Of_Week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -149,61 +144,85 @@ def Workout_Update(request):
 			print test_var
 			print isinstance(test_var, basestring)
 
-	
 			workoutDict = {}
 
-
+			# need to filter on user id here
 			workout_list = Workout.objects.filter(_Date=test_var); 
 			counter = 0 
 			for workout in workout_list: 
 				counter +=1 
-				print "ITERATION: ", counter
-				# print "Template: ", workout.Template
-				# print "Level: ", workout.Level
-				# print "Ordered_ID: ", workout.Ordered_ID
-				# print "Week: ", workout.Week
-				# print "Day: ", workout.Day
-				# print "Sets: ", workout.Sets
-				# print "Date: ", workout.Date
-				# print "_Date: ", workout._Date
 				subworkout_list = workout.SubWorkouts.all()
 				subworkout_counter = 0 
 				 
 				for subworkout in subworkout_list: 
-
 					subworkoutDict = {
 						'level': str(workout.Level),
 						'exercise_type': subworkout.Exercise_Type,
 						'exercise_name': subworkout.Exercise.Name,
 						'sets': str(subworkout.Sets),
 						'reps': str(subworkout.Reps),
+						'rpe': str(subworkout.RPE),
 						'date': workout._Date
 					}
 					workoutDict[subworkout_counter] = subworkoutDict
-					# print "SUBWORKOUT: ", subworkout_counter
-					# print "Exercise Name: ", subworkout.Exercise.Name
-					# print "Sets: ", subworkout.Sets
-					# print "Reps: ", subworkout.Reps
-					# print "Level: ", subworkout.Exercise.Level
 					subworkout_counter += 1
 
 			print workoutDict
-
-
-			# if (Workout.objects.filter(_Date=test_var)).exists():
-			# 	_Workout = Workout.objects.get(_Date=test_var)
-			# 	print("Workout Level: " + str(_Workout.Level))
-			# 	_Level = _Workout.Level
-			# 	_Exercise_Name = _Workout.SubWorkouts.all()[0].Exercise.Name
-			# 	output['level'] = str(_Level)
-			# 	output['exercise'] = _Exercise_Name
-
-			# Include Model filtering here based on test_var
 		
-			# Only for one row 
 			return JsonResponse(workoutDict)
 		else: 
 			return JsonResponse({'status': 'fail'})	
+
+
+@csrf_exempt 
+def RPE_Update(request): 
+	if request.method == 'POST': 
+		current_date = request.POST['current_date']
+		# need to filter on user id here
+		workout_list = Workout.objects.filter(_Date=current_date);
+
+		for workout in workout_list: 
+				subworkout_list = workout.SubWorkouts.all()
+				subworkout_counter = 0 
+				 
+				for subworkout in subworkout_list: 
+					if (subworkout_counter == 0): 
+						subworkout.RPE = request.POST['RPE_row1']
+						subworkout.save()
+						workout.save()
+					elif (subworkout_counter == 1): 
+						subworkout.RPE = request.POST['RPE_row2']
+						subworkout.save()
+						workout.save()
+					elif (subworkout_counter == 2): 
+						subworkout.RPE = request.POST['RPE_row3']
+						subworkout.save()
+						workout.save()
+					elif (subworkout_counter == 3): 
+						subworkout.RPE = request.POST['RPE_row4']
+						subworkout.save()
+						workout.save()
+					elif (subworkout_counter == 4): 
+						subworkout.RPE = request.POST['RPE_row5']
+						subworkout.save()
+						workout.save()
+					
+					# subworkoutDict = {
+					# 	'level': str(workout.Level),
+					# 	'exercise_type': subworkout.Exercise_Type,
+					# 	'exercise_name': subworkout.Exercise.Name,
+					# 	'sets': str(subworkout.Sets),
+					# 	'reps': str(subworkout.Reps),
+					# 	'date': workout._Date
+					# }
+					# workoutDict[subworkout_counter] = subworkoutDict
+					subworkout_counter += 1
+
+		return HttpResponse('success'); 
+
+
+
+
 
 def Home(request):
 	context = {}
