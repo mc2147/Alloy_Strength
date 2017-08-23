@@ -39,39 +39,80 @@
     <img id="user_design" src='{% static "userpage/user_interface.svg" %}'>
 
     <div id='titles'>
-        <h2>Current Video Title</h2>
-        <h2>Levels</h2>
+        <h2>[Current Video Title]</h2>
+        <h2>Video Library</h2>
     </div>
 
     <div id="left_container">
         <img id="main_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
     </div>                
 
-    <div id='right_container'>
+    <div id='right_container' style="margin-top:0px;">
         <div id='video_tabs' class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-          <div class="mdl-tabs__tab-bar">
-            <a href="#levels_group_1" class="mdl-tabs__tab is-active" id="tab1">1-5</a>
-            <a href="#levels_group_2" class="mdl-tabs__tab" id="tab2">5-10</a>
-            <a href="#levels_group_3" class="mdl-tabs__tab" id="tab3">11-15</a>
-            <a href="#levels_group_4" class="mdl-tabs__tab" id="tab4">16-20</a>
-            <a href="#levels_group_5" class="mdl-tabs__tab" id="tab5">21-25</a>
-        </div>
-        <div id="search_container">
-            <p style="font-size: 1vw; padding:0; margin: 0">Search | </p>
-            <input type="text" name="search" placeholder="Enter Keywords Here">
-            <select placeholder="Select Level" id='select_level'>
-                <option>${ option1 }</option>
-                <option>${ option2 }</option>
-                <option>${ option3 }</option>
-                <option>${ option4 }</option>
-                <option>${ option5 }</option>
-            </select>
-            <input type="button" value="Show Videos" style="background-color: orange; border-radius: 0.35vw; border: none">
-            <hr style="border-top: 0.02vw solid rgba(0,0,0,0.2); margin-top: 0.75vw; width: 85%">
-        </div>
-        <div class="mdl-tabs__panel is-active" id="levels_group_1">
+        <form method="GET">
+                <div class="mdl-tabs__tab-bar" hidden>
+                <a href="#levels_group_1" class="mdl-tabs__tab is-active" id="tab1">1-5</a>
+                <a href="#levels_group_2" class="mdl-tabs__tab" id="tab2">5-10</a>
+                <a href="#levels_group_3" class="mdl-tabs__tab" id="tab3">11-15</a>
+                <a href="#levels_group_4" class="mdl-tabs__tab" id="tab4">16-20</a>
+                <a href="#levels_group_5" class="mdl-tabs__tab" id="tab5">21-25</a>
+                </div>
+            <div id="search_container">
+                <p style="font-size: 1vw; padding:0; margin: 0">Search</p>
+                <input type="text" name="search" placeholder="Enter Keywords">
+                <select placeholder="Select Level" id='select_level' name="Level">
+                    <!-- {%for Level in  Current_Level %} -->
+                    <!-- <option>{{ Level }}</option> -->
+                    <!-- {% endfor %} -->
+                    <option>${ option1 }</option>
+                    <option value="All Levels">All Levels</option>
+                    <option>${ option2 }</option>
+                    <option>${ option3 }</option>
+                    <option>${ option4 }</option>
+                    <option>${ option5 }</option>
+                    <option>${ option6 }</option>
+                    <option>${ option7 }</option>
+                    <option>${ option8 }</option>
+                    <option>${ option9 }</option>
+                    <option>${ option10 }</option>
+                    <option>${ option11 }</option>
+                    <option>${ option12 }</option>
+                    <option>${ option13 }</option>
+                    <option>${ option14 }</option>
+                    <option>${ option15 }</option>
+                    <option>${ option16 }</option>
+                    <option>${ option17 }</option>
+                    <option>${ option18 }</option>
+                    <option>${ option19 }</option>
+                    <option>${ option20 }</option>
+                    <option>${ option21 }</option>
+                    <option>${ option22 }</option>
+                    <option>${ option23 }</option>
+                    <option>${ option24 }</option>
+                    <option>${ option25 }</option>
+                    <option>${ option26 }</option>
+                </select>
+                <input type="submit" value="Filter Videos" name="search_submit" style="background-color: orange; border-radius: 0.35vw; border: none">
+                <hr style="border-top: 0.02vw solid rgba(0,0,0,0.2); margin-top: 0.75vw; width: 85%">
+            </div>
+        </form>
+        <div class="mdl-tabs__panel is-active" id="levels_group_1" style="overflow-y:scroll; height:380px; border:solid;">
             <div class="video_row">
+                {%for Video_Name in Videos %}
                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>{{Video_Name}}</p>
+                </div>
+                {% endfor %}                
+
+<!--                 {%for Video_Name in Video_Group_1 %}
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>{{Video_Name}}</p>
+                </div>
+                {% endfor %}                
+ -->
+<!--                 <div class="thumbnail_container">
                     <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
                     <p>Level 1</p>
                 </div>
@@ -86,11 +127,12 @@
                 <div class="thumbnail_container">
                     <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
                     <p>Level 4</p>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="mdl-tabs__panel" id="levels_group_2">
             <div class="video_row">
+
                 <div class="thumbnail_container">
                     <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
                     <p>Level 6</p>
@@ -232,12 +274,53 @@
     $( document ).ready(function() {
         // for initialization purposes
         if ($("#tab1").hasClass("is-active")) {
-            vm.option1 = "Level 1";
-            vm.option2 = "Level 2";
-            vm.option3 = "Level 3"; 
-            vm.option4 = "Level 4"; 
-            vm.option5 = "Level 5"; 
+            vm.option1 = "{{Display_Levels.0}}"
+            vm.option2 = "{{Display_Levels.1}}"
+            vm.option3 = "{{Display_Levels.2}}"
+            vm.option4 = "{{Display_Levels.3}}"
+            vm.option5 = "{{Display_Levels.4}}"
+            vm.option6 = "{{Display_Levels.5}}"
+            vm.option7 = "{{Display_Levels.6}}"
+            vm.option8 = "{{Display_Levels.7}}"
+            vm.option9 = "{{Display_Levels.8}}"
+            vm.option10 = "{{Display_Levels.9}}"
+            vm.option11 = "{{Display_Levels.10}}"
+            vm.option12 = "{{Display_Levels.11}}"
+            vm.option13 = "{{Display_Levels.12}}"
+            vm.option14 = "{{Display_Levels.13}}"
+            vm.option15 = "{{Display_Levels.14}}"
+            vm.option16 = "{{Display_Levels.15}}"
+            vm.option17 = "{{Display_Levels.16}}"
+            vm.option18 = "{{Display_Levels.17}}"
+            vm.option19 = "{{Display_Levels.18}}"
+            vm.option20 = "{{Display_Levels.19}}"
+            vm.option21 = "{{Display_Levels.20}}"
+            vm.option22 = "{{Display_Levels.21}}"
+            vm.option23 = "{{Display_Levels.22}}"
+            vm.option24 = "{{Display_Levels.23}}"
+            vm.option25 = "{{Display_Levels.24}}"
+            vm.option26 = "{{Display_Levels.25}}"
+
+            // vm.option1 = "Level 1";
+            // vm.option2 = "Level 2";
+            // vm.option3 = "Level 3"; 
+            // vm.option4 = "Level 4"; 
+            // vm.option5 = "Level 5"; 
         }
+
+        $("#tab1").click(function () {
+            vm.option1 = "{{Display_Levels.0}}"
+            vm.option2 = "{{Display_Levels.1}}"
+            vm.option3 = "{{Display_Levels.2}}"
+            vm.option4 = "{{Display_Levels.3}}"
+            vm.option5 = "{{Display_Levels.4}}"
+
+            // vm.option1 = "Level 1";
+            // vm.option2 = "Level 2";
+            // vm.option3 = "Level 3"; 
+            // vm.option4 = "Level 4"; 
+            // vm.option5 = "Level 5"; 
+        })
 
         $("#tab2").click(function () {
             vm.option1 = "Level 6";

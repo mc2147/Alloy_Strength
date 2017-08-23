@@ -11,6 +11,8 @@ import json
 Exercise_Types = ["UB Hor Push", "UB Vert Push",  "UB Hor Pull", "UB Vert Pull",  "Hinge", "Squat", "LB Uni Push", 
 "Ant Chain", "Post Chain",  "Isolation", "Iso 2", "Iso 3", "Iso 4", "RFL Load", "RFD Unload 1", "RFD Unload 2"]
 
+Levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+
 def User_Page(request): 
 	workout_date_list = Workout.objects.values_list('_Date', flat=True).distinct()
 	final_list = []
@@ -26,8 +28,95 @@ def User_Page(request):
 
 	return render(request, "userpage.html", {'final_list': json.dumps(final_list)})
 
+Level_Names = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14", "Level 15",
+"Level 16", "Level 17", "Level 18", "Level 19", "Level 20", "Level 21", "Level 22", "Level 23", "Level 24", "Level 25"]
+
 def Videos(request): 
-	return render(request, "videos.html")
+	# _User = request.user
+	# _Member = Member.objects.get(User = _User)
+	# _Level = Member.Level
+	context = {}
+	context["Videos"] = []
+	context["Levels"] = Levels
+
+	context["Current_Level"] = []
+
+	context["Display_Levels"] = Level_Names
+
+	context["Video_Group_1"] = []
+	context["Video_Group_2"] = []
+	context["Video_Group_3"] = []
+	context["Video_Group_4"] = []
+
+	_Exercises = Exercise.objects.all()
+
+	# if 'Current_Level' in request.session.keys():
+	# 	context["Current_Level"] = [request.session["Current_Level"]]
+
+	for i in _Exercises:
+		if i.Level <= 5:
+			context["Video_Group_1"].append(i.Name)
+		elif i.Level <= 10:
+			context["Video_Group_2"].append(i.Name)
+		elif i.Level <= 15:
+			context["Video_Group_3"].append(i.Name)
+		elif i.Level <= 20:
+			context["Video_Group_4"].append(i.Name)
+		elif i.Level <= 25:
+			context["Video_Group_5"].append(i.Name)
+
+	if request.GET.get("search_submit"):
+		_Search_Entry = request.GET.get("search")
+		_Search_Terms = _Search_Entry.split()
+		_Level_String = request.GET.get("Level")
+		print(_Level_String)
+		if (_Level_String != "All Levels"):
+			_Level_Split = _Level_String.split()
+			_Level = int(_Level_Split[1])
+		request.session['Current_Level'] = _Level_String
+		context["Current_Level"] = [_Level_String]
+		Last_Levels = []
+		context["Display_Levels"] = Level_Names		
+		# context["Display_Levels"].remove(_Level_String)		
+		# if _Level != 0:
+			# for i in context["Display_Levels"]:
+			# 	if i != _Level_String:
+			# 		Last_Levels.append(i)
+			# context["Display_Levels"] = []
+			# context["Display_Levels"].append(_Level_String)
+			# context["Display_Levels"] = context["Display_Levels"] + Last_Levels
+		# print("Searching:")
+		# print(_Search_Entry)
+		# print(_Search_Terms)
+		# print(_Level)
+		if (_Level_String == "All Levels"):
+			context["Display_Levels"] = ["All Levels"] + Level_Names
+			print("All Levels Selected")
+		if (_Level_String != "All Levels" and _Level != 0):
+			_Level_Num = int(_Level)
+			_Exercises = Exercise.objects.filter(Level = _Level_Num)
+			context["Display_Levels"] = [_Level_String] + Level_Names
+
+		if _Search_Entry == "":
+			for i in _Exercises:
+				_Name = i.Name
+				context["Videos"].append(_Name)
+			return render(request, "videos.html", context)
+		else:
+			for i in _Exercises:
+				_Name = i.Name				
+				for _Term in _Search_Terms:
+					print(_Term)
+					print(_Term.lower())
+					print(_Term.capitalize())
+					if _Term in _Name:
+						context["Videos"].append(_Name)
+					elif _Term.capitalize() in _Name:
+						context["Videos"].append(_Name)
+					elif _Term.lower() in _Name: 
+						context["Videos"].append(_Name)
+			return render(request, "videos.html", context)
+	return render(request, "videos.html", context)
 
 Days_Of_Week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
