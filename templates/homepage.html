@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{% static 'homepage/modal.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/homepage.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,600" rel="stylesheet">
 
 
@@ -29,16 +30,16 @@
 
     <div class='mdl-layout__content' style='width:100%'>
         <!-- <img src="{% static "my_app/example.jpg" %}" alt="My image"/> -->
-        <img id='banner' src="{% static 'homepage/alloy_strength_homepage3.jpg' %}"/></img>
+        <img id='banner' src="{% static 'homepage/new_homepage_3.jpg' %}"/></img>
 
         <!-- PLACE MENU HERE -->
         <ul id='nav_bar'>
-            <li><a class="nav_link_1" href="">ABOUT</a></li>
-            <li><a class="nav_link_2" href="">PROGRAMS</a></li>
-            <li><a class="nav_link_2" href="">BLOG</a></li>
-            <li><a class="nav_link_2" href="">TESTIMONIALS</a></li>
-            <li><a class="nav_link_1" href="">STORE</a></li>
-            <li><a class="nav_link_1" href=""></a></li>
+           
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> ABOUT</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> PROGRAMS</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> BLOG</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> TESTIMONIALS</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> STORE</a></li>
         </ul> 
 
         <div id="desc">
@@ -55,7 +56,7 @@
                                 class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>SIGN UP</button>
 
                         <modal v-if='showModal' @close='showModal=false'>
-                            <h3 slot='header' style='text-align:left'>{{ header }}</h3>
+                            <h3 slot='header' style='text-align:left'>${ header }</h3>
 
                             <!-- Simple Textfield -->
                             <form slot='body' action="#" >
@@ -95,7 +96,7 @@
                                 class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>LOG IN</button>
 
                         <modal v-if='showModal' @close='showModal=false'>
-                            <h3 slot='header' style='text-align:left'>{{ header }}</h3>
+                            <h3 slot='header' style='text-align:left'>${ header }</h3>
 
                             <!-- Simple Textfield -->
                             <form slot='body' action="#" >
@@ -165,7 +166,7 @@
 
 
 <!-- Include Vue.js Instance Code -->
-<script src="{% static 'homepage/homepage.js' %}'"></script>
+<script src="{% static 'homepage/homepage.js' %}"></script>
 
 
 
