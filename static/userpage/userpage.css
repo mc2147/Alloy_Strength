@@ -2,6 +2,38 @@ body {
 	font-family: "Cabin", sans-serif;
 }
 
+.ui-datepicker-title {
+	font-size: 1.5vw;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 1vw;
+}
+
+.ui-datepicker-next, .ui-datepicker-prev {
+    display: none;
+}
+
+#month_nav {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: 0 auto;
+}
+
+#month_nav button {
+	font-size: 1vw;
+	font-family: 'Cabin', sans-serif;
+	background-color: rgb(83,109,254);
+    color: white;
+    cursor: pointer;
+    border-radius: 0.2vw;
+    border: none;
+    height: 2vw;
+    font-size: 1vw;
+    font-family: 'Cabin', sans-serif;
+  	margin-top: 0.5vw;
+}
+
 #stats_info {
 	margin: 0 auto;
 	text-align: center;
@@ -9,9 +41,13 @@ body {
 }
 
 #stats_info hr {
-	border: 1px solid rgb(83,109,254);
+	height: 0.1vw; 
+	border: none;
+	color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 	width: 80%;
 	margin: 0 auto;
+	margin-bottom: 1vw;
 }
 
 h1 {
@@ -88,32 +124,52 @@ table.table_calendar {
 td, th {
 	border: 0.1em solid rgba(83,109,254,0.75);
 	padding: 0;
-	width: 11.42%;
+	/*	width: 11.42%; */ /* for fixed width columns */ 
 	position: relative;
 }
 
-textarea {
-	width: 90%;
-	margin: 0 auto;
-	border: none;
-  	top: 0; left: 0; right: 0; bottom: 0;
-  	text-align: center;
-  	font-family: 'Cabin', sans-serif;
-  	font-size: 1vw;
-  	position: absolute;
-	resize: none;
-	display: inline-block;
-  	vertical-align: middle;
-	line-height: normal;
+.td_rpe {
+	height: 50px;
 }
 
-textarea:focus {
-	border: none;
+.div_rpe {
+	height: 100%;
+	background-color: rgba(83,109,254,0.2);
 }
+
+.input_rpe {
+	/* display: table-cell; */
+    /* vertical-align: middle; */
+    height: 100%;
+    font-size: 1vw;
+    text-align: center;
+    width: 2vw;
+    background-color: transparent; 
+    border: none;
+    font-family: 'Cabin', sans-serif;
+}
+
+input:focus {
+	outline: none;
+}
+
 
 #left_container {
 	width: 40%;
     float: left;
+}
+
+#date_text_container {
+	text-align: center;
+}
+
+#date_text_container p {
+	font-size: 1.15vw;
+}
+
+#date_text {
+	color: gray;
+	margin: 0;
 }
 
 table.ui-datepicker-calendar{
@@ -157,7 +213,7 @@ table.ui-datepicker-calendar th {
 }
 
 #summary {
-	border: 1px solid black;
+	border: 1px solid rgba(0, 0, 0, 0.3);
 	font-size: 1vw;
 	padding: 2vw;
 	width: 70%;
@@ -167,9 +223,12 @@ table.ui-datepicker-calendar th {
 }
 
 #dummy_divider {
-	border-top: 1px solid rgba(0, 0, 0, 0.3);
+	height: 0.1vw; 
+	border: none;
+	color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 	width: 80%;
 	margin: 0 auto;
-	margin-bottom: 2vw;
+	margin-bottom: 1vw;
 }
 

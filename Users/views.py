@@ -97,6 +97,15 @@ def Videos(request):
 			_Exercises = Exercise.objects.filter(Level = _Level_Num)
 			context["Display_Levels"] = [_Level_String] + Level_Names
 
+		# remove second instance of selected level
+		selected_level = context["Display_Levels"][0]
+		levels = context["Display_Levels"]
+		levels_length = len(context["Display_Levels"]); 
+
+		for i in range(1,levels_length): 
+			if (levels[i] == selected_level): 
+				context["Display_Levels"] = levels[:i] + levels[i+1:]
+
 		if _Search_Entry == "":
 			for i in _Exercises:
 				_Name = i.Name
@@ -229,34 +238,45 @@ def Workout_Update(request):
 
 			# test_var = date 
 			test_var = request.POST['TempDate']
-			print "Request is", request 
-			print test_var
-			print isinstance(test_var, basestring)
 
 			workoutDict = {}
 
 			# need to filter on user id here
 			workout_list = Workout.objects.filter(_Date=test_var); 
-			counter = 0 
-			for workout in workout_list: 
-				counter +=1 
-				subworkout_list = workout.SubWorkouts.all()
-				subworkout_counter = 0 
-				 
-				for subworkout in subworkout_list: 
-					subworkoutDict = {
-						'level': str(workout.Level), # for now, extract levels for each subworkout
-						'exercise_type': subworkout.Exercise_Type,
-						'exercise_name': subworkout.Exercise.Name,
-						'sets': str(subworkout.Sets),
-						'reps': str(subworkout.Reps),
-						'rpe': str(subworkout.RPE),
-						'date': workout._Date
-					}
-					workoutDict[subworkout_counter] = subworkoutDict
-					subworkout_counter += 1
 
-			print workoutDict
+			# If workout exists
+			if (workout_list.exists()): 
+				counter = 0 
+				for workout in workout_list: 
+					counter +=1 
+					subworkout_list = workout.SubWorkouts.all()
+					subworkout_counter = 0 
+					 
+					for subworkout in subworkout_list: 
+						subworkoutDict = {
+							'level': str(workout.Level), # for now, extract levels for each subworkout
+							'exercise_type': subworkout.Exercise_Type,
+							'exercise_name': subworkout.Exercise.Name,
+							'sets': str(subworkout.Sets),
+							'reps': str(subworkout.Reps),
+							'rpe': str(subworkout.RPE),
+							'date': workout._Date
+						}
+						workoutDict[subworkout_counter] = subworkoutDict
+						subworkout_counter += 1
+			else: 
+				subworkout_num = 6
+				subworkoutDict = {
+					'level': '',
+					'exercise_type': '',
+					'exercise_name': '',
+					'sets': '',
+					'reps': '',
+					'rpe': '',
+					'date': ''
+				}
+				for i in range(subworkout_num): 
+					workoutDict[i] = subworkoutDict
 		
 			return JsonResponse(workoutDict)
 		else: 
@@ -308,9 +328,6 @@ def RPE_Update(request):
 					subworkout_counter += 1
 
 		return HttpResponse('success'); 
-
-
-
 
 
 def Home(request):
