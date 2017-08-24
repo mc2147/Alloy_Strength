@@ -3,40 +3,34 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center; 
-    margin-top: 2em;
-    margin-left: 2vw;
+    margin-top: 1.4vw;
+    margin-left: -3%;
     list-style-type: none;
     position: absolute;
     top: 0;
     left: 0;
     line-height: 0px;
-    width:100%;
-
+    width: 100%;
 }
 
 ul {
-	font-size: 1.25em;
+	font-size: 1.25vw;
 	line-height: 0px;
 }
 
 #nav_bar li {
-    margin-left: 2.5em;
-    margin-right: 2.5em;
+    margin-left: 3.5vw;
+    margin-right: 3.5vw;
     z-index: 9999;
-    font-size: 1em;
+    font-size: 1vw;
 }
 
 .nav_link_1 {
 	color: white;
-	font-size: 1em;
+	font-size: 1vw; 
 
 }
 
-.nav_link_2 {
-	color: black;
-	font-size: 1em;
-
-}
 
 a {
 	text-decoration: none

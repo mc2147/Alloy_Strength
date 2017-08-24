@@ -1,6 +1,7 @@
 body {
 	font-family: "Cabin", sans-serif;
 }
+
 #banner {
   width: 100%;
   position: relative;
@@ -10,20 +11,52 @@ body {
 #desc{
 	text-align: center;
 	position: relative;
-	top: -15em;
+	top: -15vw;
 	z-index: 9999;
+}
+
+h3 {
+	font-size: 2.5vw !important;
+	font-weight: 600;
+	margin: 0 !important;
+	line-height: 0px; 
+	padding-top: 3vw;
+}
+
+h6 {
+	font-size: 1.25vw !important; 
+	line-height: 0px !important; 
+	padding-top: 1vw;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Cabin", sans-serif;
 }
 
-h3 {
-	font-weight: 600;
-}
-
 .mdl-button {
 	font-family: "Cabin", sans-serif;
-	font-size: 1.15em;
-	top: -1.5em;
+	font-size: 1.15vw;
+	top: -1.5vw;
+	margin: 0;
+	line-height: 0px !important;
+	height: 2.5vw !important;
+	margin-top: 2vw; 
+	margin-left:1vw;
 }
+
+@media (min-width: 840px) {
+	.mdl-grid {
+    	padding: 0px;
+    }
+}
+
+.mdl-cell .mdl-cell--12-col {
+	margin: 0px;
+	padding: 0px;
+}
+
+#modal_button_container {
+	margin: 0px;
+}
+
