@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'ckeditor_uploader',
     'Users',
 ]
 
@@ -120,7 +120,28 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'additional/static')
+]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False 
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
+

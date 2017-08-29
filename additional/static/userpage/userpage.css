@@ -1,0 +1,234 @@
+body {
+	font-family: "Cabin", sans-serif;
+}
+
+.ui-datepicker-title {
+	font-size: 1.5vw;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 1vw;
+}
+
+.ui-datepicker-next, .ui-datepicker-prev {
+    display: none;
+}
+
+#month_nav {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: 0 auto;
+}
+
+#month_nav button {
+	font-size: 1vw;
+	font-family: 'Cabin', sans-serif;
+	background-color: rgb(83,109,254);
+    color: white;
+    cursor: pointer;
+    border-radius: 0.2vw;
+    border: none;
+    height: 2vw;
+    font-size: 1vw;
+    font-family: 'Cabin', sans-serif;
+  	margin-top: 0.5vw;
+}
+
+#stats_info {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1vw;
+}
+
+#stats_info hr {
+	height: 0.1vw; 
+	border: none;
+	color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 1vw;
+}
+
+h1 {
+	font-size: 2vw;
+	padding-top: 1vw;
+	font-family: "Cabin", sans-serif;
+	font-weight: 600;
+}
+
+hr {
+	border-top: 1vw solid rgba(0, 0, 0, 0.9);
+	padding: 0;
+	margin: 0;
+	margin-top: 2vw; 
+	width: 100%;
+	margin-left: -1%;
+	position: relative;
+}
+
+img {
+	position: absolute;
+	top: 1vw;
+	width: 17.5%;
+	height: auto;
+	left: 80%;
+	z-index: 1;
+}
+
+input[type=button] {
+    background-color: rgb(83,109,254);
+    color: white;
+    cursor: pointer;
+    border-radius: 0.2vw;
+    border: none;
+    height: 2vw;
+    font-size: 1vw;
+    font-family: 'Cabin', sans-serif;
+    margin: 0 auto;
+    display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	margin-top: 1vw;
+
+}
+
+table {
+	text-align: center;
+	z-index: 9999;
+}
+
+#right_container {
+	float: right;
+	width: 60%;
+}
+
+.table_header {
+	border: none;
+	padding-top: 0.75vw;
+	padding-bottom: 0.5vw;
+}
+
+.table_content {
+	height: 5vw;
+}
+
+table.table_calendar {
+	font-size: 1vw;
+	border-collapse: collapse;
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+td, th {
+	border: 0.1em solid rgba(83,109,254,0.75);
+	padding: 0;
+	/*	width: 11.42%; */ /* for fixed width columns */ 
+	position: relative;
+}
+
+.td_rpe {
+	height: 50px;
+}
+
+.div_rpe {
+	height: 100%;
+	background-color: rgba(83,109,254,0.2);
+}
+
+.input_rpe {
+	/* display: table-cell; */
+    /* vertical-align: middle; */
+    height: 100%;
+    font-size: 1vw;
+    text-align: center;
+    width: 2vw;
+    background-color: transparent; 
+    border: none;
+    font-family: 'Cabin', sans-serif;
+}
+
+input:focus {
+	outline: none;
+}
+
+
+#left_container {
+	width: 40%;
+    float: left;
+}
+
+#date_text_container {
+	text-align: center;
+}
+
+#date_text_container p {
+	font-size: 1.15vw;
+}
+
+#date_text {
+	color: gray;
+	margin: 0;
+}
+
+table.ui-datepicker-calendar{
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+
+table.ui-datepicker-calendar td {
+	padding: 1vw;
+	border: 1px solid rgba(0, 10, 125, 0.2);
+	text-decoration: none;
+}
+
+table.ui-datepicker-calendar th {
+	padding: 0.15vw;
+	background-color: rgba(83,109,254, 0.75);
+	color: white;
+	font-weight: 400;
+
+}
+
+.ui-state-default {
+	margin: 0 auto;
+	padding: 0.5vw;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+    height: 1.4vw;
+    width: 1.4vw;
+    font-size: 0.75vw;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+
+#datepicker {
+	margin: 0 auto;
+	width: 80%;
+}
+
+#summary {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	font-size: 1vw;
+	padding: 2vw;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 2vw;
+
+}
+
+#dummy_divider {
+	height: 0.1vw; 
+	border: none;
+	color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 1vw;
+}
+

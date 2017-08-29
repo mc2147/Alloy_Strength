@@ -2,6 +2,9 @@
 from __future__ import unicode_literals
 from django.db import models
 import datetime
+from django.utils import timezone
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User, Group
 
 class Member(models.Model):
@@ -65,4 +68,25 @@ class Workout(models.Model):
 	_Date = models.CharField(default="", max_length=10)
 	SubWorkouts = models.ManyToManyField(SubWorkout, default="")
 	# _User = models.OneToOneField(User, null=True)
+
+class Post(models.Model): 
+	author = models.ForeignKey('auth.User')
+	title = models.CharField(max_length = 200)
+	text = models.TextField()
+	created_date = models.DateTimeField(default = timezone.now)
+	published_date = models.DateTimeField(blank = True, null = True)
+
+
+class Blog_Post(models.Model):
+	Title = models.CharField(max_length=200)
+	Content = RichTextUploadingField()
+	Date = models.DateTimeField(blank = True, null = True)
+
+	def publish(self): 
+		self.Date= timezone.now()
+		self.save()
+
+	def __str__(self): 
+		return self.Title 
+
 

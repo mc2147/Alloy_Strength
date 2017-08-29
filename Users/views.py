@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from .models import Workout, Set, Exercise, Member, SubWorkout, Workout_Template
+from .models import Workout, Set, Exercise, Member, SubWorkout, Workout_Template, Blog_Post
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, time, timedelta
+from .forms import BlogPostForm
 import json
 
 Exercise_Types = ["UB Hor Push", "UB Vert Push",  "UB Hor Pull", "UB Vert Pull",  "Hinge", "Squat", "LB Uni Push", 
@@ -816,6 +817,17 @@ def AdminExercises(request):
 
 
 	return render(request, "adminexercises.html", context)
+
+def Blog(request): 
+
+	form = BlogPostForm()
+	return render(request, 'blog.html', {'form': form})
+
+	# FOR CLIENT SIDE (later)
+
+	# blog_posts = Blog_Post.objects.order_by('-created_date')
+
+	# return render(request, "blog.html", {'blog_posts': blog_posts }); 
 
 
 
