@@ -5,8 +5,7 @@
 	<input id="test_button" name="test_button" type="submit" value="Update"></input>
 </form>
  -->
-<form method="GET">
-
+<form method="GET" style="display:inline-block; margin-right:20px;">
 	Level: <input style="margin-bottom:5px; width:60px;" id="Level" name="Level" type="number" placeholder="Level"></input>
 	<br>
     <br>
@@ -34,11 +33,68 @@
     </select> 
     <br>
     <br>
+	User: 
+    <select name="Username">
+    {% for Username in Usernames %}
+    <option value="{{Username}}">{{Username}}</option>
+    {% endfor %}
+    </select>     
+    <br><br>
 	<input id="Create_Workout" name="Create_Workout" type="submit" value="Create Workout"></input>
 </form>
 
+<form method="GET" style="display:inline-block; margin-left:10px;">
+	<b>Create User:</b> <br><br>
+	<input style="margin-bottom:5px; width:150px;" id="Username" name="Username" type="text" placeholder="Username/Email"></input>
+	<br>
+	<input style="margin-bottom:5px; width:150px;" name="Password_1" type="text" placeholder="Password"></input>
+    <br>
+	<input style="margin-bottom:5px; width:150px;" name="Password_2" type="text" placeholder="Confirm Password"></input>
+	<br>
+	<input style="margin-bottom:5px; width:150px;" name="F_Name" type="text" placeholder="First Name"></input>	
+	<input style="margin-bottom:5px; width:150px;" name="L_Name" type="text" placeholder="Last Name"></input>	
+    <br>
+    <br>
+	<input id="Create_User" name="Create_User" type="submit" value="Create User"></input>
+</form>
+{{User_Added}}
 
-<h2>Sample Workout Plan</h2>
+
+<br>
+<form method="GET" style="display: inline-block; margin-right:20px;">
+<h2>Show Workouts</h2>
+	User: 
+    <select name="Username">
+    {% for Username in Usernames %}
+    <option value="{{Username}}">{{Username}}</option>
+    {% endfor %}
+    </select>     
+    <br><br>
+	<input  name="Show_Workouts" type="submit" value="Show Workouts"></input>
+
+	{% for row in Workout_Display %}
+	<h3>{{row.0}}</h3>
+	{% for set in row.1 %}
+	{{set}}
+	<br>
+	{% endfor %}
+	<br>
+	{% endfor %}
+</form>
+<form method="GET" style="display: inline-block; margin-left:150px;">
+	<b>Login User:</b> <br><br>
+	<input style="margin-bottom:5px; width:150px;" id="Username" name="Username" type="text" placeholder="Username/Email"></input>
+	<br>
+	<input style="margin-bottom:5px; width:150px;" name="Password" type="text" placeholder="Password"></input>
+    <br>
+	<input id="Login" name="Login" type="submit" value="Login"></input>
+	<br><br>
+	<input id="Logout" name="Logout" type="submit" value="Logout"></input>
+</form>
+{{User_Added}}
+
+
+
 {% for row in Exercises %}
 <tr> <td>Level: {{row.0}}</td> <td>Category: {{row.1}} </td> 
 {% endfor %}

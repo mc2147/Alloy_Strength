@@ -18,65 +18,248 @@
 
 
     <!-- Material Design code -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
-    <!--   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   
     <!-- Style Sheets -->
-    <link rel="stylesheet" href="{% static 'userpage/userpage.css' %}">
+    <link rel="stylesheet" href="{% static 'videopage/videopage.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet">
 
-    <title>User Page</title>
+    <title>Training Library</title>
 
 </head>
 
 
 <!-- Body --> 
 <body>
-    <h1>Training Library</h1>
+    <h1 id='title'>Training Library</h1>
     <hr>
 
-    <img src='{% static "userpage/user_interface.svg" %}'>
+    <img id="user_design" src='{% static "userpage/user_interface.svg" %}'>
 
-
-</head>
-<body>
-
-    <div id="left_container" style="width:60%">
-        <h2>Current Video</h2>
-        <img style="margin-left:-1120px; margin-top:170px; width:600px; height:400px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>                
-<!--         <video style="margin-left:20px;" width="600" height="400" controls>
-          <source src="movie.mp4" type="video/mp4">
-          <source src="movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-        </video>
- -->    </div>
-
-    <div id='right_container' style="width:40%">
-        
+    <div id='titles'>
+        <h2>{{Video_Title}}</h2>
         <h2>Video Library</h2>
-        
-        <div style="height:90px;">
-        <h4>Levels 1 to 5</h4>
-        <img style="float:left; vertical-align:bottom; margin-top:190px; margin-left:-290px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:190px; margin-left:-120px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:190px; margin-left:50px; margin-right:-10px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png"%}'>   </div>
-        <div style="height:90px;">
-        <h4>Levels 6 to 10</h4>
-        <img style="float:left; vertical-align:bottom; margin-top:300px; margin-left:-290px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:300px; margin-left:-120px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:300px; margin-left:50px; margin-right:-10px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png"%}'> 
+    </div>
+
+    <div id="left_container">
+        <video style="margin-left:100px;" width="700" controls>
+            <source src="{{Video_URL}}" type="video/mp4">
+        </video>
+        <!-- <img id="main_video" src='{% static "videopage/Vid_Thumbnail.png" %}'> -->
+    </div>                
+
+    <div id='right_container' style="margin-top:0px;">
+        <div id='video_tabs' class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <form method="GET">
+                <div class="mdl-tabs__tab-bar" hidden>
+                <a href="#levels_group_1" class="mdl-tabs__tab is-active" id="tab1">1-5</a>
+<!--                 <a href="#levels_group_2" class="mdl-tabs__tab" id="tab2">5-10</a>
+                <a href="#levels_group_3" class="mdl-tabs__tab" id="tab3">11-15</a>
+                <a href="#levels_group_4" class="mdl-tabs__tab" id="tab4">16-20</a>
+                <a href="#levels_group_5" class="mdl-tabs__tab" id="tab5">21-25</a>
+ -->                </div>
+            <div id="search_container">
+                <p style="font-size: 1vw; padding:0; margin: 0">Search</p>
+                <input type="text" name="search" placeholder="Enter Keywords">
+                <select placeholder="Select Level" id='select_level' name="Level">
+                    <!-- {%for Level in  Current_Level %} -->
+                    <!-- <option>{{ Level }}</option> -->
+                    <!-- {% endfor %} -->
+                    <option>${ option1 }</option>
+                    <option value="All Levels">All Levels</option>
+                    <option>${ option2 }</option>
+                    <option>${ option3 }</option>
+                    <option>${ option4 }</option>
+                    <option>${ option5 }</option>
+                    <option>${ option6 }</option>
+                    <option>${ option7 }</option>
+                    <option>${ option8 }</option>
+                    <option>${ option9 }</option>
+                    <option>${ option10 }</option>
+                    <option>${ option11 }</option>
+                    <option>${ option12 }</option>
+                    <option>${ option13 }</option>
+                    <option>${ option14 }</option>
+                    <option>${ option15 }</option>
+                    <option>${ option16 }</option>
+                    <option>${ option17 }</option>
+                    <option>${ option18 }</option>
+                    <option>${ option19 }</option>
+                    <option>${ option20 }</option>
+                    <option>${ option21 }</option>
+                    <option>${ option22 }</option>
+                    <option>${ option23 }</option>
+                    <option>${ option24 }</option>
+                    <option>${ option25 }</option>
+                    <option>${ option26 }</option>
+                </select>
+                <input type="submit" value="Filter Videos" name="search_submit" style="background-color: orange; border-radius: 0.35vw; border: none">
+                <hr style="border-top: 0.02vw solid rgba(0,0,0,0.2); margin-top: 0.75vw; width: 85%">
+            </div>
+        </form>
+        <div class="mdl-tabs__panel is-active" id="levels_group_1" style="overflow-y:scroll; height:380px; border:solid;">
+        <form method="GET">
+            <input type="hidden" name="Video_PK" value="">
+            <div class="video_row">
+
+                {%for Row in Videos %}
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <input type="submit" name="{{Row.1}}" value="{{Row.0}}" style="background:none; border-width:0px; color:blue; text-decoration:underline; 
+                    padding:0px; margin:0px; font-size:12px;"/>
+                    <!-- <a href="" style="margin:0px; padding:0px;" name="{{Row.1}}" onclick="this.form.submit();"><p>{{Row.0}}</p></a> -->
+                </div>
+                {% endfor %}                
+
+<!--                 {%for Video_Name in Video_Group_1 %}
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>{{Video_Name}}</p>
+                </div>
+                {% endfor %}                
+ -->
+<!--                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 1</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 2</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 3</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 4</p>
+                </div> -->
+            </div>
+        </form>
         </div>
-        <div style="height:90px;">        
-        <h4>Levels 11 to 15</h4>
-        <img style="float:left; vertical-align:bottom; margin-top:420px; margin-left:-290px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:420px; margin-left:-120px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:420px; margin-left:50px; margin-right:-10px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png"%}'>   
+        <div class="mdl-tabs__panel" id="levels_group_2">
+            <div class="video_row">
+
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 6</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 7</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 8</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 9</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 10</p>
+                </div>
+            </div>
         </div>
-        <div style="height:90px;">        
-        <h4>Levels 16 to 25</h4>
-        <img style="float:left; vertical-align:bottom; margin-top:540px; margin-left:-290px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:540px; margin-left:-120px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png" %}'>        
-        <img style="float:left; vertical-align:bottom; margin-top:540px; margin-left:50px; margin-right:-10px; width:160px; height:80px;" src='{% static "videopage/Vid_Thumbnail.png"%}'>   
+        <div class="mdl-tabs__panel" id="levels_group_3">
+            <div class="video_row">
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 11</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 12</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 13</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 14</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 15</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 15</p>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-tabs__panel" id="levels_group_4">
+            <div class="video_row">
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 16</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 17</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 18</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 19</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 20</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 20</p>
+                </div>
+                 <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 20</p>
+                </div>
+              
+            </div>
+        </div>
+        <div class="mdl-tabs__panel" id="levels_group_5">
+            <div class="video_row">
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 21</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 22</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 23</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 24</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 25</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 25</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 25</p>
+                </div>
+                <div class="thumbnail_container">
+                    <img class="thumbnail_video" src='{% static "videopage/Vid_Thumbnail.png" %}'>
+                    <p>Level 25</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -84,67 +267,110 @@
 
 </html>
 
-
 <script>
-
     var vm = new Vue({
-        el: '.table_calendar',
+        el: '#select_level',
         delimiters: ['${', '}'],
         data: {
-            pattern: "pattern",
-            level: "level", 
-            exercise: "exercise", 
-            weight: "weight", 
-            rpe: "rpe", 
-            tempo: "tempo"
+            option1: "",
+            option2: "",
+            option3: "", 
+            option4: "",
+            option5: ""
         }
     });
 
-    console.log(vm); 
+    $( document ).ready(function() {
+        // for initialization purposes
+        if ($("#tab1").hasClass("is-active")) {
+            vm.option1 = "{{Display_Levels.0}}"
+            vm.option2 = "{{Display_Levels.1}}"
+            vm.option3 = "{{Display_Levels.2}}"
+            vm.option4 = "{{Display_Levels.3}}"
+            vm.option5 = "{{Display_Levels.4}}"
+            vm.option6 = "{{Display_Levels.5}}"
+            vm.option7 = "{{Display_Levels.6}}"
+            vm.option8 = "{{Display_Levels.7}}"
+            vm.option9 = "{{Display_Levels.8}}"
+            vm.option10 = "{{Display_Levels.9}}"
+            vm.option11 = "{{Display_Levels.10}}"
+            vm.option12 = "{{Display_Levels.11}}"
+            vm.option13 = "{{Display_Levels.12}}"
+            vm.option14 = "{{Display_Levels.13}}"
+            vm.option15 = "{{Display_Levels.14}}"
+            vm.option16 = "{{Display_Levels.15}}"
+            vm.option17 = "{{Display_Levels.16}}"
+            vm.option18 = "{{Display_Levels.17}}"
+            vm.option19 = "{{Display_Levels.18}}"
+            vm.option20 = "{{Display_Levels.19}}"
+            vm.option21 = "{{Display_Levels.20}}"
+            vm.option22 = "{{Display_Levels.21}}"
+            vm.option23 = "{{Display_Levels.22}}"
+            vm.option24 = "{{Display_Levels.23}}"
+            vm.option25 = "{{Display_Levels.24}}"
+            vm.option26 = "{{Display_Levels.25}}"
 
-    $( function() {
-        $( "#datepicker" ).datepicker();
-
-        var currentDate = $( "#datepicker" ).val()
-
-        $( "#date_text" ).text(currentDate);
-
-        // Get selected date
-        // reference: https://stackoverflow.com/questions/26667720/how-to-get-the-selected-date-from-jquery-datepicker
-
-        console.log(currentDate);
-
-        var URL = "{% url 'userpageUpdate' %}";
-
-
-        function updateTempDate(){
-            var TempDate = $( "#date_text" ).text(); 
-            var data = {'TempDate': TempDate};
-            console.log("I'm in updateTempDate"); 
-            $.post(URL, data, function(response){
-                console.log(JSON.stringify(response));
-                vm.level = response.level;
-                vm.exercise = response.exercise; 
-                vm.weight = response.weight;
-                vm.rpe = response.rpe; 
-                vm.tempo = response.tempo; 
-            });
+            // vm.option1 = "Level 1";
+            // vm.option2 = "Level 2";
+            // vm.option3 = "Level 3"; 
+            // vm.option4 = "Level 4"; 
+            // vm.option5 = "Level 5"; 
         }
 
-        $(document).ready(function(){
-            $("#datepicker").on("change",function() {
-                var newDate = $(this).val();
-                $( "#date_text" ).text(newDate);
-                updateTempDate(); 
-                console.log(vm); 
-            })
+        $("#tab1").click(function () {
+            vm.option1 = "{{Display_Levels.0}}"
+            vm.option2 = "{{Display_Levels.1}}"
+            vm.option3 = "{{Display_Levels.2}}"
+            vm.option4 = "{{Display_Levels.3}}"
+            vm.option5 = "{{Display_Levels.4}}"
 
-        });
+            // vm.option1 = "Level 1";
+            // vm.option2 = "Level 2";
+            // vm.option3 = "Level 3"; 
+            // vm.option4 = "Level 4"; 
+            // vm.option5 = "Level 5"; 
+        })
 
+        $("#tab2").click(function () {
+            vm.option1 = "Level 6";
+            vm.option2 = "Level 7";
+            vm.option3 = "Level 8"; 
+            vm.option4 = "Level 9"; 
+            vm.option5 = "Level 10"; 
+          
+        })
+
+        $("#tab3").click(function () {
+            vm.option1 = "Level 11";
+            vm.option2 = "Level 12";
+            vm.option3 = "Level 13"; 
+            vm.option4 = "Level 14"; 
+            vm.option5 = "Level 15"; 
+          
+        })
+
+        $("#tab4").click(function () {
+            vm.option1 = "Level 16";
+            vm.option2 = "Level 17";
+            vm.option3 = "Level 18"; 
+            vm.option4 = "Level 19"; 
+            vm.option5 = "Level 20"; 
+          
+        })
+
+        $("#tab5").click(function () {
+            vm.option1 = "Level 21";
+            vm.option2 = "Level 22";
+            vm.option3 = "Level 23"; 
+            vm.option4 = "Level 24"; 
+            vm.option5 = "Level 25"; 
+          
+        })
 
     });
+
+
 </script>
-
 
 <style>
 
