@@ -34,6 +34,7 @@ class Set(models.Model):
 	Rest_Time = models.DurationField(default=datetime.timedelta(minutes=2, seconds=0))
 	Order = models.IntegerField(default=0)
 
+
 # Row in each table in 'Program'
 class SubWorkout(models.Model):
 	# Workout = models.OneToOneField(Workout, default="")
@@ -47,6 +48,7 @@ class SubWorkout(models.Model):
 	Deload = models.IntegerField(default=0)
 	Money = models.IntegerField(default=0)
 
+
 # One page in 'Program'
 class Workout_Template(models.Model):
 	Level_Group = models.IntegerField(default=0)
@@ -56,6 +58,7 @@ class Workout_Template(models.Model):
 	Day = models.IntegerField(default=0)
 	SubWorkouts = models.ManyToManyField(SubWorkout, default="")
 	_Date = models.CharField(default="", max_length=10)
+
 
 class Workout(models.Model):
 	Template = models.ForeignKey(Workout_Template)
@@ -68,6 +71,7 @@ class Workout(models.Model):
 	_Date = models.CharField(default="", max_length=10)
 	SubWorkouts = models.ManyToManyField(SubWorkout, default="")
 	# _User = models.OneToOneField(User, null=True)
+
 
 class Post(models.Model): 
 	author = models.ForeignKey('auth.User')
