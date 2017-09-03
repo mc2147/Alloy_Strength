@@ -44,19 +44,19 @@
         <div class="collapse navbar-collapse" id="navbar-container">
           <ul class="nav navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'AdminHome' %}">Home</a>
+              <a class="nav-link" id="Home" href="{% url 'AdminHome' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'AdminVideos' %}">Videos</a>
+              <a class="nav-link" id="Videos" href="{% url 'AdminVideos' %}">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'AdminWorkouts' %}">Workouts</a>
+              <a class="nav-link" id="Workouts" href="{% url 'AdminWorkouts' %}">Workouts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'AdminExercises' %}">Exercises</a>
+              <a class="nav-link" id="Exercises" href="{% url 'AdminExercises' %}">Exercises</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'AdminUsers' %}">Profile</a>
+              <a class="nav-link" id="Profile" href="{% url 'AdminUsers' %}">Profile</a>
             </li>
           </ul>
         </div>
@@ -67,4 +67,16 @@
     {% endblock %}
 
   </body>
+
+  <script>
+    $('#Home').click( function() { 
+      $('#Home').addClass('active'); 
+    });
+
+    // $('body').on('click', '.nav-link', function() {
+    //     $('.active').removeClass('active');
+    //     console.log("THIS: ", this); 
+    //     $(this).addClass('active');
+    // });
+  </script>
 
