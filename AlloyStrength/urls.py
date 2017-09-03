@@ -3,28 +3,25 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import static
 from django.contrib import admin
-from Users.views import Home, Member_Home, Admin_Workouts, Admin_Workouts_2, Admin_Workouts_3, Admin_Workouts_4, Test, User_Page, Workout_Update, Videos, AdminExercises, Stripe_Test
-from Users.views import RPE_Update, Admin_Users, Admin_User_Profile, Admin_Videos, Admin_Videos_Edit, Admin_Videos_Library, Admin_Videos_2
-
+from Users.views import * 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^admin-workouts/', Admin_Workouts, name='Home'),
+    url(r'^admin-workouts/', Admin_Workouts, name='AdminWorkouts'),
     url(r'^admin-workouts-2/', Admin_Workouts_2, name='Home'),
     url(r'^admin-workouts-3/', Admin_Workouts_3, name='Home'),
     url(r'^admin-workouts-4/', Admin_Workouts_4, name='Home'),
 
-
-    url(r'^admin-exercises/', AdminExercises, name='Home'),
-    url(r'^admin-videos/', Admin_Videos, name='Home'),
+    url(r'^admin-home/', Admin_Home, name="AdminHome"),
+    url(r'^admin-exercises/', AdminExercises, name='AdminExercises'),
+    url(r'^admin-videos/', Admin_Videos, name='AdminVideos'),
     url(r'^admin-videos-2/', Admin_Videos_2, name=''),    
     url(r'^admin-videos-library/', Admin_Videos_Library, name='Home'),
     url(r'^admin-videos-library-edit/', Admin_Videos_Edit, name='Home'),
 
     url(r'^admin-users/', Admin_Users, name='AdminUsers'),
-    url(r'^admin-users-view-profile/', Admin_User_Profile, name='AdminUser_Profile'),
-    # url(r'^admin-users-view-profile/', Admin_User_Profile, name='AdminUser_Profile'),
+    url(r'^admin-users-view-profile/', Admin_User_Profile, name='AdminUserProfile'),
 
     url(r'^home/', Home, name='Home'),
     url(r'^member-home/', Member_Home, name='Home'),
@@ -41,4 +38,5 @@ urlpatterns = [
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
+

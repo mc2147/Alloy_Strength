@@ -1,0 +1,21 @@
+
+table {
+  margin-left: 2%; 
+}
+
+th, td {
+    border: 1px solid black;
+    font-size:12px;
+    padding:0px;
+    border-collapse: collapse;
+}
+
+td, input {
+  width:175px;
+  padding:0px;
+}
+
+#level {
+  width:70px;
+}
+

@@ -1,0 +1,34 @@
+body {
+	font-family: "Open Sans", sans-serif;
+	font-weight: 400;
+}
+
+.navbar {
+	padding: 0.4% 0 0.4% 2.5%;
+	margin: 0;
+}
+
+.navbar-brand {
+	font-size: 1.75vw;
+}
+
+.nav-link {
+	font-size: 1.25vw;
+	padding: 0vw;
+	padding-top: 0.5vw;
+	padding-bottom: 0.5vw;
+}
+
+.navbar button {
+	margin-right: 2vw;
+}
+
+.navbar-toggler {
+	padding: 0.6vw 0.9vw;
+}
+
+.navbar-toggler-icon {
+	width: 1.5vw;
+	height: 2vw;
+	display: block;
+}
