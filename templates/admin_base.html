@@ -23,8 +23,9 @@
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{% static 'adminuserprofilepage/admin_exercises.css' %}">
     <link rel="stylesheet" href="{% static 'adminuserprofilepage/admin_base.css' %}">
+    <link rel="stylesheet" href="{% static 'adminuserprofilepage/admin_exercises.css' %}">
+    <link rel="stylesheet" href="{% static 'adminuserprofilepage/admin_workouts.css' %}">
     <link href="navbar-top.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -72,11 +73,5 @@
     $('#Home').click( function() { 
       $('#Home').addClass('active'); 
     });
-
-    // $('body').on('click', '.nav-link', function() {
-    //     $('.active').removeClass('active');
-    //     console.log("THIS: ", this); 
-    //     $(this).addClass('active');
-    // });
   </script>
 
