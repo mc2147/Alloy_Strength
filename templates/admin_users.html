@@ -3,43 +3,39 @@
 
 {% block content %}
 
-  <div class="container">
+  <div class="jumbotron">
     <h1>Users List</h1>
+    <hr>
     <form method="POST" action="#">{% csrf_token %}
-    <table style="border:1px solid black; font-size:12px; border-collapse: collapse;">
+    <table class="user-table user-table-rounded">
       <tr>
-        <th style="width:250px !important; text-align:left;">Email (Click to View Profile)</th>
-        <!-- <th style="width:100px !important; text-align:left;">Email</th> -->    
-        <th style="font-size:12px; border:1px solid black; width:100px !important; text-align:left;">First Name</th>
-        <th style="font-size:12px; border:1px solid black; width:100px !important; text-align:left;">Last Name</th>
-        <th style="font-size:12px; border:1px solid black; width:50px !important; text-align:left;">Squat</th>
-        <th style="font-size:12px; border:1px solid black; width:50px !important; text-align:left;">Hinge</th>
-        <th style="font-size:12px; width:100px !important; text-align:left;">UB Hor Press</th>
-        <th style="font-size:12px; width:150px !important; text-align:left;">Last Workout (Date)</th>
-        <th style="font-size:12px; width:150px !important; text-align:left;">Next Workout (Date)</th>
+        <th>Email (Click to View Profile)</th>  
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Squat</th>
+        <th>Hinge</th>
+        <th>UB Hor Press</th>
+        <th>Last Workout (Date)</th>
+        <th>Next Workout (Date)</th>
       </tr>
+
       {% for User in Users %}
-      <tr>
-        <td>
-        <!-- <a href="/profile">{{User}}</a> -->
-        <input type="submit" name="{{User.1}}" value="{{User.0}}" style="background:none; border-width:0px; color:blue; 
-        text-decoration:underline; padding:0px; margin:0px; font-size:12px;"/>
+        <tr>
+          <td>
+            <input type="submit" name="{{User.1}}" value="{{User.0}}" class="user-email">
+          </td>
+          <td>{{User.2}}</td>
+          <td>{{User.3}}</td>
+          <td><a href="/profile">3</a></td>
+          <td><a href="/profile">4</a></td>
+          <td><a href="/profile">5</a></td>
+          <td></td>
+          <td></td>
 
-        </td>
-        <td>{{User.2}}</td>
-        <td>{{User.3}}</td>
-        <td><a href="/profile">3</a></td>
-        <td><a href="/profile">4</a></td>
-        <td><a href="/profile">5</a></td>
-        <td><a href="/profile">6</a></td>
-        <td><a href="/profile">6</a></td>
-
-    <!--     {% for Exercise in Exercises_1 %}
-        <td><input style="width:210px;" type="text" name="L1{{Exercise.2}}" placeholder="{{Exercise.1.0}}"></td> 
-        {% endfor %}
-     --> </tr>
+        </tr>
       {% endfor %}
     </table>
+
     <br>
     </form>
   </div>

@@ -1,0 +1,68 @@
+.jumbotron {
+	width: 95%;
+	margin: 0 auto;
+	padding: 0;
+	padding: 1.5vw;
+}
+
+h1 {
+	font-size: 3.5vw;
+	padding-left: 0.5vw
+}
+
+.user-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-style: hidden;
+  box-shadow: 0 0 0 0.05vw;
+  border-radius: 0.5vw;
+  color: rgba(56, 104, 150, 0.3);
+  width: 100%;
+  background: rgba(0, 0, 0, 0.075);
+}
+
+.user-table td, th {
+  font-size: 1vw;
+  width: 10%;
+  text-align: center;
+  color: black;
+}
+
+.user-table th {
+  background-color: rgb(56, 104, 150); 
+  color: white;
+  font-weight: normal;
+  padding: 0.5vw;
+  border: 0.1vw solid rgba(255, 255, 255, 0.1);
+}
+
+.user-table td {
+	border-top: 0.1vw solid rgba(56, 104, 150, 0.5);
+  text-align: center;
+  background-color: transparent;
+}
+
+.user-table-rounded tbody th:first-child {
+  border-radius: 0.5vw 0 0 0;
+}
+
+.user-table-rounded tbody th:last-child {
+  border-radius: 0 0.5vw 0 0;
+}
+
+.user-email {
+	background-color: transparent;
+	color: rgba(0, 123, 255, 1);
+	font-size: 1vw;
+	border: none;
+	cursor: pointer;
+}
+
+.user-email:hover {
+	background-color: white;
+	border-radius: 0.5vw;
+}
+
+.user-email:focus {
+		outline: none;
+}

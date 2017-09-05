@@ -1,11 +1,23 @@
-#main-content {
-  width: 90%; 
+.jumbotron {
+  width: 95%;
   margin: 0 auto;
+  padding: 0;
+  padding: 1.5vw;
 }
 
-#main-content h2 {
-  font-size: 3vw;
-  font-weight: bold;
+h1 {
+  font-size: 3.5vw;
+  padding-left: 0.5vw
+}
+
+h2 {
+  font-size: 2.5vw;
+  padding-left: 0.5vw;
+  font-weight: 600;
+}
+
+#main-content {
+  margin: 0 auto;
 }
 
 .exercise-table {
@@ -13,10 +25,11 @@
   border-spacing: 0;
   border-style: hidden;
   box-shadow: 0 0 0 0.05vw;
-  border-radius: 1vw;
+  border-radius: 0.5vw;
   color: rgba(56, 104, 150, 0.3);
   width: 100%;
-  background: rgba(0, 0, 0, 0.075)
+  background: rgba(0, 0, 0, 0.075);
+  margin-bottom: 1vw;
 }
 
 .exercise-table td, th {
@@ -38,17 +51,34 @@
 .exercise-table td input {
   border: none;
   width: 100%;
+  padding-top: 0.25vw;
+  padding-bottom: 0.25vw;
   text-align: center;
   color: rgb(0, 123, 255);
   background-color: transparent;
 }
 
+.exercise-table td input:focus {
+  background-color: white;
+}
+
 .exercise-table-rounded tbody th:first-child {
-  border-radius: 1vw 0 0 0;
+  border-radius: 0.5vw 0 0 0;
 }
 
 .exercise-table-rounded tbody th:last-child {
-  border-radius: 0 1vw 0 0;
+  border-radius: 0 0.5vw 0 0;
 }
+
+#exercise-update-button {
+  margin-top: 0.5vw;
+  background-color: rgba(0, 76, 255, 0.85);
+  border: none;
+  border-radius: 0.25vw;
+  color: white;
+  font-size: 1.25vw;
+  padding: 0.5vw;
+}
+
 
 

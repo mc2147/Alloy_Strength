@@ -33,3 +33,15 @@ body {
 	height: 2vw;
 	display: block;
 }
+
+.jumbotron {
+	width: 95%;
+	margin: 0 auto;
+	padding: 0;
+	padding: 1.5vw;
+}
+
+h1 {
+	font-size: 3.5vw;
+	padding-left: 0.5vw
+}
