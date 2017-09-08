@@ -18,23 +18,26 @@
 }
 
 .modal-container {
-    width: 300px;
-    margin: 0px auto;
-    padding: 20px 30px;
+    overflow: auto;
+    width: 50%;
+    height: 75%;
+    margin: 0 auto;
+    padding: 2vw 3vw;
     background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    border-radius: 0.5vw;
+    box-shadow: 0 0.5vw 2vw rgba(0, 0, 0, 0.33);
     transition: all 0.3s ease;
     font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
-    margin: 20px 0;
+    margin: 1.5vw 0;
     color: #1e2e88;
 }
 
 .modal-body {
-    margin: 20px 0;
+    overflow: auto;
+    margin: 2vw 0;
 }
 
 .modal-default-button {
@@ -65,9 +68,9 @@ input, textarea, select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 2em;
+    margin: 2vw;
 }
 
 .modal_button {
-    margin: 0.5em;
+    margin: 0.5vw;
 }

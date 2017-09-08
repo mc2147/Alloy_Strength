@@ -27,7 +27,7 @@
 
 <body>
 
-    <div style='width:100%'>
+    <div class='mdl-layout__content' style='width:100%'>
         <!-- <img src="{% static "my_app/example.jpg" %}" alt="My image"/> -->
         <img id='banner' src="{% static 'homepage/alloy_strength_homepage3.jpg' %}"/></img>
 
@@ -46,8 +46,8 @@
             <h6> ONLINE STRENGTH TRAINING SYSTEMS </h6> 
             <!-- MODALS -->
             <!-- TO DO: pattern matching -->
-            <div>
-                <div id='modal_button_container'>
+            <div class='mdl-grid'>
+                <div class='mdl-cell mdl-cell--12-col' id='modal_button_container'>
                     <!-- SIGN-UP MODAL -->
                 <form slot='body' action="#">
 
@@ -58,7 +58,7 @@
                                 class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>SIGN UP</button>
 
                         <modal v-if='showModal1' @close='showModal1=false; showModal2=true'>
-                            <h3 slot='header'>${ header1 }</h3>
+                            <h3 slot='header' style='text-align:left'>${ header1 }</h3>
 
                             <!-- Simple Textfield 1 -->
                             <div slot='body' class="mdl-textfield mdl-js-textfield">
@@ -88,11 +88,11 @@
                         </modal>
                     </div>
 
-                    <!-- MODAL 2 --> 
+                    <!-- MODAL --> 
                     <div id='sign-up-2' class='modal_button'>
                         <!-- Accent-colored raised button with ripple -->
                         <modal v-if='showModal2' @close='showModal2=false; showModal3=true'>
-                            <h3 slot='header'>${ header2 }</h3>
+                            <h3 slot='header' style='text-align:left'>${ header2 }</h3>
 
                             <!-- Simple Textfield -->
                             <div slot='body' class="mdl-textfield mdl-js-textfield">
@@ -109,51 +109,41 @@
                     <!-- MODAL 3 --> 
                     <div id='sign-up-3' class='modal_button'>
                         <!-- Accent-colored raised button with ripple -->
+                        <modal v-if='showModal3' @close='showModal3=false; button_label="CLOSE"; showModal4=true'>
+                            <h3 slot='header' style='text-align:left'>${ header3 }</h3>
 
-                        <div> 
-                            <modal v-if='showModal3' @close='showModal3=false; button_label="CLOSE"; showModal4=true'>
-                                <h3 slot='header'>${ header3 }</h3>
+                            <!-- Simple Textfield -->
+                            <div slot='body' class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" v-bind:value='training_exp'>
+                            </div>
 
-                                <!-- Simple Textfield -->
-                                <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" v-bind:value='training_exp'>
-                                </div>
+                            <!-- Simple Textfield 2-->
+                            <div slot='body' class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" v-bind:value='primary_sports'>
+                            </div>
 
-                                <!-- Simple Textfield 2-->
-                                <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" v-bind:value='primary_sports'>
-                                </div>
+                            <div slot='body'>
+                                <h6>${ rpe_exp } <span>
+                                    <select>
+                                        <option value="yes">Yes</option>
+                                        <option value="yes">No</option>
+                                    </select> 
+                                </span></h6>
+                            </div>
 
-                                <div slot='body'>
-                                    <p>${ rpe_exp } <span>
-                                        <select>
-                                            <option value="yes">Yes</option>
-                                            <option value="yes">No</option>
-                                        </select> 
-                                    </span></p>
-                                </div>
+                            <div slot='body'>
+                                <p>${ known_maxes }</p>
+                                <p>${ squat } <input type="text"><p>
+                            </div>
 
-                                <div slot='body'>
-                                    <h5>${ known_maxes }</h5>
-                                    <h6>${ bench } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ deadlift } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ overhead_press } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ power_clean } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ clean_and_jerk } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ snatch } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ other } <span><textarea rows="4" cols="50" style='border: 1px solid gray'></textarea><span></h6>
-                                    <br>
-                                </div>
-
-                            </modal>
-                        </div>
+                        </modal>
                     </div>
 
                     <!-- MODAL 4 --> 
                     <div id='sign-up-4' class='modal_button'>
                         <!-- Accent-colored raised button with ripple -->
                         <modal v-if='showModal4' @close='showModal4=false'>
-                            <h3 slot='header'>${ header4 }</h3>
+                            <h3 slot='header' style='text-align:left'>${ header4 }</h3>
                             <p slot='body'></p>
                             <button slot='footer' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
                                     @click='showModal4=false'>
@@ -161,31 +151,6 @@
                             </button>
                         </modal>
                     </div>
-
-
-                     <!-- LOG-IN MODAL -->
-                    <div id='log-in' class='modal_button'>
-                        <!-- Accent-colored raised button with ripple -->
-                        <button id='show-modal' @click='showModal5 = true'
-                                class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>LOG IN</button>
-
-                        <modal v-if='showModal5' @close='showModal5=false'>
-                            <h3 slot='header'>${ header5 }</h3>
-
-                            <!-- Simple Textfield -->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='email2'>
-                            </div>
-
-                            <!-- Simple Textfield 2-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='password2'>
-                            </div>
-
-                        </modal>
-                    </div>
-
-
 
                 </form>
                 </div>

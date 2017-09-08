@@ -16,9 +16,9 @@ urlpatterns = [
     url(r'^admin-home/', Admin_Home, name="AdminHome"),
     url(r'^admin-exercises/', AdminExercises, name='AdminExercises'),
     url(r'^admin-videos/', Admin_Videos, name='AdminVideos'),
-    url(r'^admin-videos-2/', Admin_Videos_2, name=''),    
-    url(r'^admin-videos-library/', Admin_Videos_Library, name='Home'),
-    url(r'^admin-videos-library-edit/', Admin_Videos_Edit, name='Home'),
+    url(r'^admin-videos-2/', Admin_Videos_2, name='AdminVideos2'),    
+    url(r'^admin-videos-library/', Admin_Videos_Library, name='AdminVideosLibrary'),
+    url(r'^admin-videos-library-edit/', Admin_Videos_Edit, name='AdminVideosLibraryEdit'),
 
     url(r'^admin-users/', Admin_Users, name='AdminUsers'),
     url(r'^admin-users-view-profile/', Admin_User_Profile, name='AdminUserProfile'),
