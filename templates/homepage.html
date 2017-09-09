@@ -12,13 +12,14 @@
 
     <!-- Material Design code -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script> 
 
     <!-- Style Sheets -->
     <link rel="stylesheet" href="{% static 'homepage/modal.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/homepage.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,600" rel="stylesheet">
 
 
@@ -27,28 +28,22 @@
 
 <body>
 
-    <div style='width:100%'>
-        <!-- <img src="{% static "my_app/example.jpg" %}" alt="My image"/> -->
-        <img id='banner' src="{% static 'homepage/alloy_strength_homepage3.jpg' %}"/></img>
+    <div class='mdl-layout__content' style='width:100%'>
+        <img id='banner' src="{% static 'homepage/new_homepage_3.jpg' %}"/></img>
 
-        <!-- PLACE MENU HERE -->
-        <ul id='nav_bar'>
-            <li><a class="nav_link_1" href="">ABOUT</a></li>
-            <li><a class="nav_link_2" href="">PROGRAMS</a></li>
-            <li><a class="nav_link_2" href="">BLOG</a></li>
-            <li><a class="nav_link_2" href="">TESTIMONIALS</a></li>
-            <li><a class="nav_link_1" href="">STORE</a></li>
-            <li><a class="nav_link_1" href=""></a></li>
+        <ul id='nav_bar' style="margin-top:1vw;">
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> ABOUT</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> PROGRAMS</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> BLOG</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> TESTIMONIALS</a></li>
+            <li><a class="nav_link_1" href=""> <i class="fa fa-caret-right" style="color:#00a9ff"></i> STORE</a></li>
         </ul> 
 
-        <div id="desc">
+       <div id="desc">
             <h3> ALLOY STRENGTH </h3>
             <h6> ONLINE STRENGTH TRAINING SYSTEMS </h6> 
-            <!-- MODALS -->
-            <!-- TO DO: pattern matching -->
             <div>
                 <div id='modal_button_container'>
-                    <!-- SIGN-UP MODAL -->
                 <form slot='body' action="#">
 
                     <!-- MODAL 1 --> 
@@ -59,31 +54,29 @@
 
                         <modal v-if='showModal1' @close='showModal1=false; showModal2=true'>
                             <h3 slot='header'>${ header1 }</h3>
+                            <hr slot='header'>
 
-                            <!-- Simple Textfield 1 -->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='name'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Name</span><input class='modal-input' type="text"></span>
                             </div>
 
-                            <!-- Simple Textfield 2-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='birth_date'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Date of Birth</span><input class='modal-input' type="text"
+                                placeholder='MM/DD/YYYY'></span>
                             </div>
 
-                            <!-- Simple Textfield 3-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='email'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Email</span><input class='modal-input' type="text"></span>
                             </div>
 
-                            <!-- Simple Textfield 4-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='password'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Password</span><input class='modal-input' type="password"></span>
                             </div>
 
-                            <!-- Simple Textfield 5-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='confirm_password'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Confirm Password</span><input class='modal-input' type="password"></span>
                             </div>
+
 
                         </modal>
                     </div>
@@ -93,16 +86,16 @@
                         <!-- Accent-colored raised button with ripple -->
                         <modal v-if='showModal2' @close='showModal2=false; showModal3=true'>
                             <h3 slot='header'>${ header2 }</h3>
+                            <hr slot='header'>
 
-                            <!-- Simple Textfield -->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='height'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Height</span><input class='modal-input' type="text"></span>
                             </div>
 
-                            <!-- Simple Textfield 2-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='weight'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Weight</span><input class='modal-input' type="text"></span>
                             </div>
+
                         </modal>
                     </div>
 
@@ -111,38 +104,68 @@
                         <!-- Accent-colored raised button with ripple -->
 
                         <div> 
-                            <modal v-if='showModal3' @close='showModal3=false; button_label="CLOSE"; showModal4=true'>
+                            <modal v-if='showModal3' @close='showModal3=false; showModal4=true'>
                                 <h3 slot='header'>${ header3 }</h3>
+                                <hr slot='header'>
 
-                                <!-- Simple Textfield -->
-                                <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" v-bind:value='training_exp'>
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Training Experience</span><input class='modal-input' 
+                                    type="text" placeholder='Years and Months'></span>
                                 </div>
 
-                                <!-- Simple Textfield 2-->
-                                <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" v-bind:value='primary_sports'>
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Primary Sports</span><input class='modal-input' 
+                                    type="text" placeholder='Please list a maximum of three sports'></span>
                                 </div>
 
-                                <div slot='body'>
-                                    <p>${ rpe_exp } <span>
-                                        <select>
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Experience Using RPE?</span>
+                                        <select class='modal-input'>
                                             <option value="yes">Yes</option>
                                             <option value="yes">No</option>
                                         </select> 
-                                    </span></p>
+                                    </span>
                                 </div>
 
-                                <div slot='body'>
-                                    <h5>${ known_maxes }</h5>
-                                    <h6>${ bench } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ deadlift } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ overhead_press } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ power_clean } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ clean_and_jerk } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ snatch } <span><input type="text" style='border-bottom: 1px solid gray'><span></h6>
-                                    <h6>${ other } <span><textarea rows="4" cols="50" style='border: 1px solid gray'></textarea><span></h6>
-                                    <br>
+                                <h5 slot='body'>Known Max Lifts (Leave Blank if Unknown)</h5>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Squat</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Bench</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Deadlift</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Overhead Press</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Power Clean</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Clean and Jerk</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Snatch</span><input class='modal-input' 
+                                    type="text"></span>
+                                </div>
+
+                                <div slot='body' class='modal-input-container'>
+                                    <span><span class='modal-input-label'>Other</span><textarea class='modal-input'></textarea></span>
                                 </div>
 
                             </modal>
@@ -172,20 +195,16 @@
                         <modal v-if='showModal5' @close='showModal5=false'>
                             <h3 slot='header'>${ header5 }</h3>
 
-                            <!-- Simple Textfield -->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='email2'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Email</span><input class='modal-input' type="password"></span>
                             </div>
 
-                            <!-- Simple Textfield 2-->
-                            <div slot='body' class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" v-bind:value='password2'>
+                            <div slot='body' class='modal-input-container'>
+                                <span><span class='modal-input-label'>Password</span><input class='modal-input' type="password"></span>
                             </div>
 
                         </modal>
                     </div>
-
-
 
                 </form>
                 </div>
@@ -199,7 +218,7 @@
 
 <!-- Include Template for modal component -->
 <!-- Reference: https://vuejs.org/v2/examples/modal.html -->
-<script type='text/x-template' id='modal-template'>
+<script type='text/x-template' id='modal-template' data-jsassets="https://code.getmdl.io/1.3.0/material.min.js">
 
     <transition name='modal'>
         <div class='modal-mask'>
@@ -235,7 +254,6 @@
 
 <!-- Include Vue.js Instance Code -->
 <script src="{% static 'homepage/homepage.js' %}"></script>
-
 
 
 <!-- Styling -->

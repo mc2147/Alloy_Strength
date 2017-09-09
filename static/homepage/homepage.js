@@ -7,7 +7,6 @@ new Vue({
     el:'#desc',
     delimiters: ['${', '}'],
     data: {
-        button_label: 'SUBMIT',
         showModal1: false,
         header1: 'STEP 1: USER INFORMATION',
         name: 'Name',
