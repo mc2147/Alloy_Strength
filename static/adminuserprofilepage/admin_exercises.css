@@ -1,5 +1,5 @@
 #main-content {
-  width: 90%; 
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -21,14 +21,14 @@
 
 .exercise-table td, th {
   font-size: 0.9vw;
-  border: 0.1vw solid rgba(56, 104, 150, 0.5); 
+  border: 0.1vw solid rgba(56, 104, 150, 0.5);
   width: 10%;
   text-align: center;
   color: rgba(0, 0, 0, 0.75);
 }
 
 .exercise-table th {
-  background-color: rgb(56, 104, 150); 
+  background-color: rgb(56, 104, 150);
   color: white;
   font-weight: normal;
   padding: 0.5vw;

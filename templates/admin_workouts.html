@@ -22,20 +22,20 @@
 
             <h4 style="margin-bottom:2px; margin-top:2px;">{{Day.0}}</h4>
 
-            <div style="margin-left:50px;">
-            Exercise Type | Sets x Reps | RPE | Deload | Money
+            <div style="margin-left:15px;">
+            Exercise Type | Sets x Reps | RPE | Level | Alloy
             </div>
 
             {% for Sub in Day.1 %}
               {{Sub.3}}
               <select name="Type_{{Sub.5}}">
               <option value="{{Sub.0}}">{{Sub.0}}</option>
-              
+
               {% for Type in Exercise_Types %}
                 <option value="{{Type}}">{{Type}}</option>
               {% endfor %}
 
-              </select> 
+              </select>
               <input style="" type="text" placeholder="{{Sub.4}}" name="Sets_{{Sub.5}}">
               x
               <input style="" type="text" placeholder="{{Sub.2}}" name="Reps_{{Sub.5}}">
@@ -43,12 +43,12 @@
               <input style="margin-left:5px;" type="text" placeholder="{{Sub.7}}" name="Deload_{{Sub.5}}">
               <input style="margin-left:15px; margin-left:10px;" type="text" placeholder="{{Sub.8}}" name="Money_{{Sub.5}}">
               <br>
-            {% endfor %}  
+            {% endfor %}
 
             <input type="submit" style="width:50px;" name="{{Week.2}}{{Day.2}}_Update_Workout" value="Update">
           </form>
         </div>
-        
+
       {% endfor %} <!-- Day Loop End  -->
   {% endfor %}
   </div>
@@ -56,11 +56,11 @@
 
 <style>
   th, td {
-    border:1px solid black; 
+    border:1px solid black;
   }
   p {
     font-size:10px;
-  }  
+  }
 
   . {
     font-size:10px;

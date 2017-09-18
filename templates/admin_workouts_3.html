@@ -15,7 +15,7 @@
         {%for Block in Selected_Block %}
           <option value="{{Block.1}}">{{Block.0}}</option>
         {% endfor %}
-        
+
         {%for Block in Blocks %}
           <option value="{{Block.1}}">{{Block.0}}</option>
         {% endfor %}
@@ -24,33 +24,33 @@
   </form>
 
   <h2>{{Block_Label}}</h2>
-    
+
     {% for Week in Workout_Templates %}
-      
+
       <h3 style="margin-bottom:2px;">{{Week.0}}</h3>
-      
+
       {% for Day in Week.1 %}
         <div style="display:inline-block; width:23%; font-size:10px;">
-    
+
         <form method="GET" style="display:inline-block; margin-right:10px;">
           <h4 style="margin-bottom:2px; margin-top:2px;">{{Day.0}}</h4>
 
-          <div style="margin-left:50px;">
-          Exercise Type | Sets x Reps | RPE | Deload | Alloy<br>
+          <div style="margin-left:10px;">
+          Exercise Type | Sets x Reps | RPE | Level | Alloy<br>
           </div>
 
           {% for Sub in Day.1 %}
 
-            Set {{Sub.0}} 
+            <!--Set {{Sub.0}} -->
 
             <select name="Type_{{Sub.0}}">
               <option value="{{Sub.1}}">{{Sub.1}}</option>
-              
+
               {% for Type in Exercise_Types %}
                 <option value="{{Type}}">{{Type}}</option>
               {% endfor %}
 
-            </select> 
+            </select>
 
             <input style="" type="text" placeholder="{{Sub.2}}" name="Sets_{{Sub.0}}">
             x
@@ -66,19 +66,19 @@
 
         </form>
         </div>
-    
-      {% endfor %} 
+
+      {% endfor %}
     {% endfor %}
 
     </div>
 
 <style>
   th, td {
-    border:1px solid black; 
+    border:1px solid black;
   }
   p {
     font-size:10px;
-  }  
+  }
 
   . {
     font-size:10px;
